@@ -36,7 +36,7 @@ export function Section({
       id={id}
       ref={ref}
       className={clsx(
-        "w-full px-4 sm:px-6 lg:px-10 py-16 sm:py-20 snap-start relative",
+        "w-full px-4 sm:px-6 lg:px-10 py-16 sm:py-20 relative",
         withBorder && "border-b border-slate-200/60 dark:border-slate-700/60",
         fullScreen && "min-h-[100svh] flex items-center",
         animated && !inView && "opacity-0 translate-y-8",

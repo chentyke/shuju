@@ -67,8 +67,6 @@ html, body {
 /* Main wrapper will apply snap behavior */
 .snap-y-container {
   scroll-snap-type: y mandatory;
-  overflow-y: auto;
-  height: 100svh;
 }
 
 /* Enhanced card styles */
@@ -111,4 +109,64 @@ html, body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted-foreground);
+}
+
+/* 旗子动画 */
+@keyframes flagWave {
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(1deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(-1deg);
+  }
+}
+
+@keyframes flagFlutter {
+  0%, 100% {
+    transform: scaleX(1) scaleY(1);
+  }
+  25% {
+    transform: scaleX(0.95) scaleY(1.05);
+  }
+  50% {
+    transform: scaleX(1.05) scaleY(0.95);
+  }
+  75% {
+    transform: scaleX(0.98) scaleY(1.02);
+  }
+}
+
+/* 旗子出现动画 */
+@keyframes flagAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  50% {
+    opacity: 0.7;
+    transform: translateY(-2px) scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 旗子消失动画 */
+@keyframes flagDisappear {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateY(-5px) scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.7);
+  }
 }
