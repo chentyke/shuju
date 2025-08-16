@@ -106,14 +106,14 @@ export function Hero() {
             </div>
             
             {/* 便签卡片布局 */}
-            <div className="relative h-40 sm:h-48 mb-4 sm:mb-6">
+            <div className="relative h-40 sm:h-52 lg:h-56 mb-4 sm:mb-6">
               <StickyNote 
                 year="2021"
                 value="32.5万"
                 growth=""
                 color="bg-slate-200"
                 textColor="text-slate-700"
-                position={{ top: '55%', left: '2%' }}
+                position={{ top: '50%', left: '0%' }}
                 rotation="-rotate-3"
                 delay={0}
               />
@@ -124,7 +124,7 @@ export function Hero() {
                 growth="+786%"
                 color="bg-red-200"
                 textColor="text-red-800"
-                position={{ top: '25%', left: '26%' }}
+                position={{ top: '20%', left: '22%' }}
                 rotation="rotate-2"
                 delay={0.3}
                 highlight
@@ -136,8 +136,8 @@ export function Hero() {
                 growth="+53.5%"
                 color="bg-emerald-200"
                 textColor="text-emerald-800"
-                position={{ top: '10%', left: '52%' }}
-                rotation="-rotate-1"
+                position={{ top: '35%', left: '45%' }}
+                rotation="-rotate-2"
                 delay={0.6}
               />
               
@@ -147,8 +147,8 @@ export function Hero() {
                 growth="+30.3%"
                 color="bg-emerald-300"
                 textColor="text-emerald-900"
-                position={{ top: '0%', left: '76%' }}
-                rotation="rotate-1"
+                position={{ top: '15%', left: '68%' }}
+                rotation="rotate-3"
                 delay={0.9}
                 latest
               />
@@ -157,17 +157,15 @@ export function Hero() {
               <ConnectionArrows />
             </div>
             
-            {/* 底部总结和数据来源 */}
-            <div className="text-center space-y-2 sm:space-y-3">
-              <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 dark:from-emerald-900/50 dark:to-teal-900/50 dark:text-emerald-300">
+            {/* 底部总结 */}
+            <div className="text-center space-y-3">
+              <div className="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 dark:from-emerald-900/50 dark:to-teal-900/50 dark:text-emerald-300">
                 📈 总增长17.7倍 · 2022年爆发式增长
               </div>
               
-              <div className="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-slate-200 dark:border-slate-700 inline-block max-w-full">
-                <div className="flex items-center justify-center space-x-1 sm:space-x-2">
-                  <span className="text-slate-400 flex-shrink-0">📊</span>
-                  <span className="text-center leading-tight">数据来源：2021-2024广州市交通发展年度报告</span>
-                </div>
+              {/* 数据来源 - 放在总结下方 */}
+              <div className="text-xs text-slate-400 dark:text-slate-500">
+                数据来源：2021-2024广州市交通发展年度报告
               </div>
             </div>
           </div>
@@ -209,7 +207,7 @@ function StickyNote({
   return (
     <div
       ref={ref}
-      className={`absolute w-24 h-24 p-4 ${color} ${rotation} transform transition-all duration-700 ease-out cursor-pointer group hover:scale-110 hover:z-10 ${
+      className={`absolute w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 p-3 sm:p-4 lg:p-5 ${rotation} transform transition-all duration-700 ease-out cursor-pointer group hover:scale-110 hover:z-10 ${
         latest ? 'ring-2 ring-emerald-500' : ''
       }`}
       style={{
@@ -220,22 +218,52 @@ function StickyNote({
           ? `${rotation.replace('rotate', 'rotate')} scale(1)` 
           : `${rotation.replace('rotate', 'rotate')} scale(0.8) translateY(20px)`,
         transitionDelay: `${delay}s`,
-        boxShadow: '0 6px 12px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.1)',
+        boxShadow: '0 8px 20px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.08)',
+        borderRadius: '3px',
+        background: (() => {
+          if (color.includes('slate')) return 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)';
+          if (color.includes('red')) return 'linear-gradient(135deg, #fef2f2 0%, #fecaca 100%)';
+          if (color.includes('emerald-200')) return 'linear-gradient(135deg, #ecfdf5 0%, #bbf7d0 100%)';
+          if (color.includes('emerald-300')) return 'linear-gradient(135deg, #d1fae5 0%, #86efac 100%)';
+          return 'linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%)';
+        })(),
+        border: '1px solid rgba(255,255,255,0.3)',
       }}
     >
-      {/* 便签纸顶部的胶带效果 */}
-      <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-10 h-2.5 bg-yellow-200/80 rounded-sm opacity-60" />
+      {/* 便签纸纹理背景 */}
+      <div className="absolute inset-0 opacity-30 pointer-events-none" style={{
+        backgroundImage: `
+          radial-gradient(circle at 20% 50%, rgba(255,255,255,0.3) 1px, transparent 1px),
+          radial-gradient(circle at 80% 20%, rgba(255,255,255,0.2) 1px, transparent 1px),
+          radial-gradient(circle at 40% 80%, rgba(255,255,255,0.2) 1px, transparent 1px)
+        `,
+        backgroundSize: '100% 100%'
+      }} />
       
-      <div className={`h-full flex flex-col justify-center items-center text-center ${textColor} space-y-1.5`}>
+      {/* 便签纸顶部的胶带效果 */}
+      <div className="absolute -top-1.5 left-1/2 transform -translate-x-1/2 w-10 sm:w-12 lg:w-14 h-3 sm:h-3.5 lg:h-4 rounded-sm opacity-80"
+        style={{
+          background: 'linear-gradient(45deg, #fbbf24 0%, #f59e0b 50%, #fbbf24 100%)',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        }}
+      >
+        {/* 胶带高光 */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent rounded-sm" />
+        {/* 胶带边缘撕裂效果 */}
+        <div className="absolute -left-0.5 top-0 w-1 h-full bg-amber-300/60 rounded-l-sm" />
+        <div className="absolute -right-0.5 top-0 w-1 h-full bg-amber-600/40 rounded-r-sm" />
+      </div>
+      
+      <div className={`h-full flex flex-col justify-center items-center text-center ${textColor} space-y-1 sm:space-y-1.5 lg:space-y-2`}>
         {/* 年份 */}
-        <div className="text-sm font-bold opacity-70">{year}</div>
+        <div className="text-sm sm:text-base lg:text-lg font-bold opacity-70">{year}</div>
         
         {/* 数值 */}
-        <div className="text-base font-bold leading-tight">{value}</div>
+        <div className="text-base sm:text-lg lg:text-xl font-bold leading-tight">{value}</div>
         
         {/* 增长率 */}
         {growth && (
-          <div className={`text-xs font-bold px-2 py-1 rounded ${
+          <div className={`text-xs sm:text-sm lg:text-base font-bold px-2 py-1 rounded ${
             highlight 
               ? 'bg-red-300 text-red-800 animate-pulse' 
               : 'bg-white/50 text-emerald-700'
@@ -245,8 +273,20 @@ function StickyNote({
         )}
       </div>
       
+      {/* 便签纸边缘卷曲阴影 */}
+      <div className="absolute inset-0 rounded-sm" style={{
+        background: `
+          linear-gradient(45deg, transparent 0%, rgba(0,0,0,0.05) 2%, transparent 3%),
+          linear-gradient(-45deg, transparent 97%, rgba(0,0,0,0.05) 98%, transparent 100%)
+        `
+      }} />
+      
+      {/* 便签纸折痕 */}
+      <div className="absolute top-2 right-2 w-6 h-0.5 bg-black/10 rotate-12 rounded-full opacity-40" />
+      <div className="absolute bottom-3 left-3 w-4 h-0.5 bg-black/10 -rotate-6 rounded-full opacity-30" />
+      
       {/* Hover效果 */}
-      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-all duration-200 rounded" />
+      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition-all duration-200 rounded-sm" />
       
       {/* 特殊标记 */}
       {highlight && (
