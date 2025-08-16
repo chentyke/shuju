@@ -191,7 +191,8 @@ const groupedBarChartOption: EChartsOption = {
       label: {
         show: true,
         position: 'top',
-        formatter: function(params: { dataIndex: number; value: number }) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        formatter: function(params: any) {
           const percentage = [80, 65, 100][params.dataIndex];
           return `${params.value}例\n(${percentage}%)`;
         },
