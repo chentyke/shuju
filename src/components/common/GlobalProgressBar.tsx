@@ -48,10 +48,10 @@ export function GlobalProgressBar() {
     } else if (percentage < 40) {
       targetId = 'daily-trips';
     } else if (percentage < 75) {
-      targetId = 'page-3';
+      targetId = 'violation-trends';
     } else {
-      // 点击75%以后跳转到最后一页（终点旗子区域）
-      targetId = 'page-4';
+      // 点击75%以后跳转到最后一页
+      targetId = 'medical-impact';
     }
     
     const targetElement = document.getElementById(targetId);
@@ -189,8 +189,8 @@ export function GlobalProgressBar() {
 
             {/* 中间章节点 */}
             {[
-              { position: 33, label: "出行量趋势", id: "daily-trips" },
-              { position: 67, label: "第三页测试", id: "page-3" }
+              { position: 27, label: "出行量趋势", id: "daily-trips" },
+              { position: 55, label: "违法数据", id: "violation-trends" }
             ].map((section, index) => (
               <div
                 key={index}
@@ -225,7 +225,7 @@ export function GlobalProgressBar() {
               style={{ left: '100%' }}
               onClick={(e) => {
                 e.stopPropagation();
-                const targetElement = document.getElementById('page-4');
+                const targetElement = document.getElementById('medical-impact');
                 if (targetElement) {
                   targetElement.scrollIntoView({
                     behavior: 'smooth',
@@ -252,7 +252,7 @@ export function GlobalProgressBar() {
                 {/* 标签 */}
                 <div className="absolute top-full mt-2 transform -translate-x-1/2 opacity-0 hover:opacity-100 transition-opacity duration-150 pointer-events-none">
                   <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap shadow-md">
-                    终点
+                    医疗数据
                   </div>
                 </div>
               </div>

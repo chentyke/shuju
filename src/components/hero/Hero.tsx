@@ -402,31 +402,6 @@ function ConnectionArrows() {
           }}
         />
         
-        {/* 便签节点 */}
-        <circle cx="15%" cy="70%" r="2" fill="#64748b" fillOpacity="0.6" 
-          style={{
-            opacity: inView ? 1 : 0,
-            transition: 'opacity 0.3s ease-out 1.3s'
-          }}
-        />
-        <circle cx="35%" cy="50%" r="2" fill="#64748b" fillOpacity="0.6"
-          style={{
-            opacity: inView ? 1 : 0,
-            transition: 'opacity 0.3s ease-out 1.6s'
-          }}
-        />
-        <circle cx="60%" cy="35%" r="2" fill="#64748b" fillOpacity="0.6"
-          style={{
-            opacity: inView ? 1 : 0,
-            transition: 'opacity 0.3s ease-out 1.9s'
-          }}
-        />
-        <circle cx="85%" cy="15%" r="2" fill="#64748b" fillOpacity="0.6"
-          style={{
-            opacity: inView ? 1 : 0,
-            transition: 'opacity 0.3s ease-out 2.2s'
-          }}
-        />
       </svg>
     </div>
   );

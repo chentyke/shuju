@@ -25,15 +25,28 @@ export function DailyTripsSection() {
       textStyle: { color: '#334155' },
       extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); backdrop-filter: blur(8px);',
       formatter: function(params: unknown) {
-        const paramsArray = params as Array<{ axisValue: string; seriesName: string; value: number; color: string }>;
-        let result = `<div style="font-weight: bold; margin-bottom: 8px;">${paramsArray[0].axisValue}年</div>`;
-        paramsArray.forEach((param) => {
-          result += `<div style="display: flex; align-items: center; margin-bottom: 4px;">
-            <div style="width: 10px; height: 10px; background: ${param.color}; border-radius: 50%; margin-right: 8px;"></div>
-            ${param.seriesName}: <span style="font-weight: bold; margin-left: 4px;">${param.value}万人次</span>
-          </div>`;
-        });
-        return result;
+        try {
+          const paramsArray = params as Array<{ axisValue: string; seriesName: string; value: number; color: string }>;
+          if (!Array.isArray(paramsArray) || paramsArray.length === 0 || !paramsArray[0]) {
+            return '';
+          }
+          
+          let result = `<div style="font-weight: bold; margin-bottom: 8px;">${paramsArray[0].axisValue || ''}年</div>`;
+          
+          for (let i = 0; i < paramsArray.length; i++) {
+            const param = paramsArray[i];
+            if (!param || param.value === undefined || param.value === null) continue;
+            
+            result += `<div style="display: flex; align-items: center; margin-bottom: 4px;">
+              <div style="width: 10px; height: 10px; background: ${param.color || '#ccc'}; border-radius: 50%; margin-right: 8px;"></div>
+              ${param.seriesName || ''}: <span style="font-weight: bold; margin-left: 4px;">${param.value}万人次</span>
+            </div>`;
+          }
+          return result;
+        } catch (error) {
+          console.error('DailyTrips tooltip error:', error);
+          return '';
+        }
       }
     },
     legend: { 
