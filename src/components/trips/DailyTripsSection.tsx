@@ -55,10 +55,11 @@ export function DailyTripsSection() {
       textStyle: { color: '#64748b', fontSize: 12 },
       itemGap: 20
     },
-    grid: { left: 60, right: 40, top: 70, bottom: 60 },
+    grid: { left: 40, right: 20, top: 70, bottom: 60 },
     xAxis: { 
       type: "category", 
       data: dailyTripsData.map(d => d.year),
+      boundaryGap: false,
       axisLine: { lineStyle: { color: '#e2e8f0' } },
       axisTick: { lineStyle: { color: '#e2e8f0' } },
       axisLabel: { color: '#64748b', fontSize: 11 }
