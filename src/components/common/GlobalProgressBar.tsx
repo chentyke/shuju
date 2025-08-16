@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export function GlobalProgressBar() {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -31,7 +32,7 @@ export function GlobalProgressBar() {
     handleScroll(); // 初始化
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isVisible, shouldRender]);
 
   const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -135,10 +136,12 @@ export function GlobalProgressBar() {
                 transform: 'scaleX(-1)',
               }}
             >
-              <img 
+              <Image 
                 src="/bike-icon.png" 
                 alt="电动自行车" 
-                className="w-10 h-10 drop-shadow-lg transition-transform duration-200 group-hover:scale-110"
+                width={40}
+                height={40}
+                className="drop-shadow-lg transition-transform duration-200 group-hover:scale-110"
                 style={{
                   filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
                 }}
