@@ -45,7 +45,7 @@ export function GlobalProgressBar() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     } else if (percentage < 40) {
-      targetId = 'page-2';
+      targetId = 'daily-trips';
     } else if (percentage < 75) {
       targetId = 'page-3';
     } else {
@@ -186,7 +186,7 @@ export function GlobalProgressBar() {
 
             {/* 中间章节点 */}
             {[
-              { position: 33, label: "第二页测试", id: "page-2" },
+              { position: 33, label: "出行量趋势", id: "daily-trips" },
               { position: 67, label: "第三页测试", id: "page-3" }
             ].map((section, index) => (
               <div
