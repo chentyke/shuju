@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Section } from "@/components/common/Section";
-import { detailedMedicalData, medicalPressureIndicators, zhujJiangHospitalData } from "@/data/medical";
+import { zhujJiangHospitalData } from "@/data/medical";
 import type { EChartsOption } from "echarts";
 
 const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false }) as unknown as (props: { option: EChartsOption; style?: React.CSSProperties }) => import("react").ReactElement | null;
@@ -191,8 +191,7 @@ const groupedBarChartOption: EChartsOption = {
       label: {
         show: true,
         position: 'top',
-        formatter: function(params: any) {
-          const category = ['急诊总数', '严重车祸伤', '死亡'][params.dataIndex];
+        formatter: function(params: { dataIndex: number; value: number }) {
           const percentage = [80, 65, 100][params.dataIndex];
           return `${params.value}例\n(${percentage}%)`;
         },

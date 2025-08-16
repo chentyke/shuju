@@ -135,7 +135,7 @@ const mixedChartOption: EChartsOption = {
         color: '#999'
       }
     },
-    formatter: function(params: any) {
+    formatter: function(params: Array<{ axisValue: string; seriesName: string; value: number; color: string }>) {
       try {
         if (Array.isArray(params) && params.length > 0 && params[0]) {
           const xData = params[0].axisValue || '';
@@ -258,7 +258,7 @@ const mixedChartOption: EChartsOption = {
       label: {
         show: true,
         position: 'top',
-        formatter: function(params: any) {
+        formatter: function(params: { dataIndex: number }) {
           const data = violationYearlyData[params.dataIndex];
           if (data.year === 2023 || data.year === 2024) {
             return `${data.violations}万宗\n（预估）`;
