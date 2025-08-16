@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 export function GlobalProgressBar() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,7 +16,15 @@ export function GlobalProgressBar() {
       setScrollProgress(Math.min(Math.max(scrollPercent, 0), 100));
       
       // 滚动一定距离后显示进度条
-      setIsVisible(scrollTop > 50);
+      const shouldShow = scrollTop > 100;
+      
+      if (shouldShow && !shouldRender) {
+        setShouldRender(true);
+        setTimeout(() => setIsVisible(true), 10);
+      } else if (!shouldShow && isVisible) {
+        setIsVisible(false);
+        setTimeout(() => setShouldRender(false), 500);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -53,12 +62,23 @@ export function GlobalProgressBar() {
     }
   };
 
+  if (!shouldRender) return null;
+
   return (
     <div 
-      className={`fixed bottom-8 left-8 right-8 transition-all duration-500 ease-out ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-16 opacity-0'
+      className={`fixed bottom-8 left-8 right-8 transition-all duration-700 ease-out ${
+        isVisible 
+          ? 'translate-y-0 opacity-100 scale-100' 
+          : 'translate-y-8 opacity-0 scale-95'
       }`}
-      style={{ zIndex: 9999 }}
+      style={{ 
+        zIndex: 9999,
+        transform: isVisible 
+          ? 'translateY(0) scale(1)' 
+          : 'translateY(2rem) scale(0.95)',
+        opacity: isVisible ? 1 : 0,
+        transition: 'all 0.7s cubic-bezier(0.4, 0, 0.2, 1)'
+      }}
     >
       {/* 路面背景容器 */}
       <div className="relative bg-gradient-to-b from-slate-600 to-slate-700 dark:from-slate-700 dark:to-slate-800 rounded-full p-3 shadow-xl backdrop-blur-sm border border-slate-500/30">

@@ -93,7 +93,7 @@ export function Hero() {
         
         <div className="relative">
           {/* 便签图风格的增长轨迹 */}
-          <div className="p-6 h-80 relative overflow-visible">
+          <div className="p-4 sm:p-6 h-72 sm:h-80 relative overflow-visible">
             {/* 优化的标题区域 */}
             <div className="text-center mb-6 space-y-2">
               <h3 className="text-xl font-bold bg-gradient-to-r from-slate-800 to-emerald-600 bg-clip-text text-transparent dark:from-slate-200 dark:to-emerald-400">
@@ -106,7 +106,7 @@ export function Hero() {
             </div>
             
             {/* 便签卡片布局 */}
-            <div className="relative h-48 mb-6">
+            <div className="relative h-40 sm:h-48 mb-4 sm:mb-6">
               <StickyNote 
                 year="2021"
                 value="32.5万"
@@ -158,15 +158,15 @@ export function Hero() {
             </div>
             
             {/* 底部总结和数据来源 */}
-            <div className="text-center space-y-3">
-              <div className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 dark:from-emerald-900/50 dark:to-teal-900/50 dark:text-emerald-300">
+            <div className="text-center space-y-2 sm:space-y-3">
+              <div className="inline-flex items-center px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium bg-gradient-to-r from-emerald-100 to-teal-100 text-emerald-800 dark:from-emerald-900/50 dark:to-teal-900/50 dark:text-emerald-300">
                 📈 总增长17.7倍 · 2022年爆发式增长
               </div>
               
-              <div className="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 inline-block">
-                <div className="flex items-center space-x-2">
-                  <span className="text-slate-400">📊</span>
-                  <span>数据来源：2021-2024广州市交通发展年度报告</span>
+              <div className="text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-slate-200 dark:border-slate-700 inline-block max-w-full">
+                <div className="flex items-center justify-center space-x-1 sm:space-x-2">
+                  <span className="text-slate-400 flex-shrink-0">📊</span>
+                  <span className="text-center leading-tight">数据来源：2021-2024广州市交通发展年度报告</span>
                 </div>
               </div>
             </div>
