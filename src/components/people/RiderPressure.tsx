@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"; // eslint-disable-line @typescript-eslint/no-unused-vars
 import dynamic from "next/dynamic";
 import { Section } from "@/components/common/Section";
 import { riderViolationRatioData, violationTypeData, riderBasicData, incomeAndPenaltyData, socialMediaComments, emotionColors } from "@/data/riderViolations";
@@ -192,7 +192,7 @@ export function RiderPressure() {
               </div>
               <div className="text-lg font-semibold text-slate-900 dark:text-white mb-2">承认曾闯红灯</div>
               <div className="text-sm text-slate-600 dark:text-slate-400">
-                主要因"系统倒计时"带来的时间压迫
+                主要因&ldquo;系统倒计时&rdquo;带来的时间压迫
               </div>
             </div>
             
@@ -254,7 +254,7 @@ export function RiderPressure() {
 }
 
 // 漂浮评论组件
-function FloatingComments() {
+function FloatingComments() { // eslint-disable-line @typescript-eslint/no-unused-vars
   const [visibleComments, setVisibleComments] = useState<Array<{
     comment: typeof socialMediaComments[0];
     x: number;
@@ -297,7 +297,7 @@ function FloatingComments() {
 }
 
 // 单个漂浮气泡组件
-function FloatingBubble({ 
+function FloatingBubble({ // eslint-disable-line @typescript-eslint/no-unused-vars 
   comment, 
   x, 
   y, 
@@ -312,7 +312,7 @@ function FloatingBubble({
   rotation: number;
   scale: number;
   delay: number;
-  index: number;
+  index: number; // eslint-disable-line @typescript-eslint/no-unused-vars
 }) {
   const color = emotionColors[comment.emotion as keyof typeof emotionColors] || "#6b7280";
   
@@ -353,7 +353,7 @@ function FloatingBubble({
             className="text-sm font-medium leading-tight mb-2"
             style={{ color: color }}
           >
-            "{comment.text}"
+&ldquo;{comment.text}&rdquo;
           </p>
           
           {/* 点赞数 */}

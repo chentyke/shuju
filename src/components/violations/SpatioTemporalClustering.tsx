@@ -6,7 +6,7 @@ import { ViolationTimeDistribution } from "@/components/charts/ViolationTimeDist
 import { RestrictedRoadsMap } from "@/components/maps/RestrictedRoadsMap";
 
 export function SpatioTemporalClustering() {
-  const { ref: titleRef, inView: titleInView } = useInView({
+  const { ref: _titleRef, inView: _titleInView } = useInView({
     threshold: 0.3,
     triggerOnce: true,
   });

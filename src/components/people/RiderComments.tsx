@@ -41,7 +41,7 @@ export function RiderComments() {
         </h2>
         
         <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-6xl mx-auto mb-4">
-          为了更直观地呈现骑手群体的生存状态，我们爬取了社交媒体上与"外卖骑手""送餐压力"等话题相关的评论。
+          为了更直观地呈现骑手群体的生存状态，我们爬取了社交媒体上与&ldquo;外卖骑手&rdquo;&ldquo;送餐压力&rdquo;等话题相关的评论。
           这些冰冷数字背后，是骑手们每天的现实感受。
         </p>
         
@@ -237,7 +237,7 @@ function SimpleBubble({
   y: number;
   scale: number;
   opacity: number;
-  index: number;
+  index: number; // eslint-disable-line @typescript-eslint/no-unused-vars
 }) {
   const color = emotionColors[comment.emotion as keyof typeof emotionColors] || "#6b7280";
   
@@ -269,7 +269,7 @@ function SimpleBubble({
         {/* 评论内容 */}
         <div className="relative">
           <p className="text-sm font-medium leading-relaxed mb-3 text-slate-800 dark:text-slate-100">
-            "{comment.text}"
+&ldquo;{comment.text}&rdquo;
           </p>
           
           {/* 底部信息栏 */}

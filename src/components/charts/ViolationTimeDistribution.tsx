@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 import { hourlyViolationData, violationTypesByTime } from "@/data/spatioTemporalViolations";
 
 export function ViolationTimeDistribution() {
-  const chartRef = useRef<any>(null);
+  const _chartRef = useRef<any>(null);
   const [currentHour, setCurrentHour] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const { ref, inView } = useInView({
@@ -27,7 +27,7 @@ export function ViolationTimeDistribution() {
 
   // 获取24小时分布图表配置
   const getHourlyChartOption = (): any => {
-    const maxViolations = Math.max(...hourlyViolationData.map(d => d.violations));
+    // const maxViolations = Math.max(...hourlyViolationData.map(d => d.violations));
     
     return {
       backgroundColor: 'transparent',
