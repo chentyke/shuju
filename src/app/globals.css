@@ -170,3 +170,172 @@ html, body {
     transform: translateY(15px) scale(0.7);
   }
 }
+
+/* 气泡漂浮动画 */
+@keyframes float-in {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateY(30px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translate(-50%, -50%) translateY(-8px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-4px) rotate(-0.5deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) translateY(-12px) rotate(0.5deg);
+  }
+}
+
+@keyframes gentle-bob {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes gentle-sway {
+  0%, 100% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(2px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
+@keyframes subtle-rotate {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(0.5deg);
+  }
+  75% {
+    transform: rotate(-0.5deg);
+  }
+}
+
+/* 气泡呼吸效果 */
+@keyframes bubble-breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+/* 气泡边框发光效果 */
+@keyframes border-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+  }
+}
+
+/* 3D空间样式 */
+.perspective-1000 {
+  perspective: 1000px;
+  perspective-origin: center center;
+}
+
+.transform-gpu {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+/* 径向渐变背景 */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
+/* 3D气泡动画 */
+@keyframes bubble3DFloat {
+  0%, 100% {
+    transform: translateZ(0px) rotateX(0deg) rotateY(0deg);
+  }
+  33% {
+    transform: translateZ(20px) rotateX(5deg) rotateY(-3deg);
+  }
+  66% {
+    transform: translateZ(-10px) rotateX(-3deg) rotateY(5deg);
+  }
+}
+
+@keyframes depthPulse {
+  0%, 100% {
+    filter: blur(0px) brightness(1);
+  }
+  50% {
+    filter: blur(1px) brightness(1.1);
+  }
+}
+
+@keyframes glassShine {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+/* 应用动画的类 */
+.animate-float-in {
+  animation: float-in 1s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-gentle-bob {
+  animation: gentle-bob 5s ease-in-out infinite;
+}
+
+.animate-gentle-sway {
+  animation: gentle-sway 7s ease-in-out infinite;
+}
+
+.animate-subtle-rotate {
+  animation: subtle-rotate 12s ease-in-out infinite;
+}
+
+.animate-bubble-breathe {
+  animation: bubble-breathe 8s ease-in-out infinite;
+}
+
+.animate-border-glow {
+  animation: border-glow 4s ease-in-out infinite;
+}
+
+.animate-bubble-3d-float {
+  animation: bubble3DFloat 8s ease-in-out infinite;
+}
+
+.animate-depth-pulse {
+  animation: depthPulse 6s ease-in-out infinite;
+}
+
+.animate-glass-shine {
+  animation: glassShine 3s ease-in-out infinite;
+}

@@ -7,6 +7,7 @@ export function GlobalProgressBar() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,39 +35,52 @@ export function GlobalProgressBar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isVisible, shouldRender]);
 
-  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const clickX = e.clientX - rect.left;
-    const percentage = (clickX / rect.width) * 100;
-    
-    // 根据点击位置判断应该跳转到哪个页面
-    let targetId = '';
-    if (percentage < 10) {
-      // 点击前10%跳转到Hero页面顶部（起始旗子区域）
+  // 点击外部关闭菜单
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isMenuOpen) {
+        const target = event.target as HTMLElement;
+        if (!target.closest('[data-progress-bar]')) {
+          setIsMenuOpen(false);
+        }
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('click', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
+  const handleProgressClick = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleMenuItemClick = (targetId: string) => {
+    if (targetId === 'top') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    } else if (percentage < 40) {
-      targetId = 'daily-trips';
-    } else if (percentage < 75) {
-      targetId = 'violation-trends';
+    } else if (targetId === 'bottom') {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
     } else {
-      // 点击75%以后跳转到最后一页
-      targetId = 'medical-impact';
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
     }
-    
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-      });
-    }
+    setIsMenuOpen(false);
   };
 
   if (!shouldRender) return null;
 
   return (
     <div 
+      data-progress-bar
       className={`fixed bottom-8 left-8 right-8 transition-all duration-700 ease-out ${
         isVisible 
           ? 'translate-y-0 opacity-100 scale-100' 
@@ -150,115 +164,10 @@ export function GlobalProgressBar() {
             </div>
           </div>
           
-          {/* 章节标记 */}
-          <div className="absolute inset-0">
-            {/* 起始旗子 */}
-            <div
-              className={`absolute top-1/2 transform -translate-y-1/2 transition-all duration-500 cursor-pointer ${
-                scrollProgress > 5 
-                  ? 'opacity-80 hover:opacity-100 animate-[flagWave_2s_ease-in-out_infinite,flagAppear_0.5s_ease-out]' 
-                  : 'opacity-0 animate-[flagDisappear_0.3s_ease-in]'
-              }`}
-              style={{ left: '0%' }}
-              onClick={(e) => {
-                e.stopPropagation();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-            >
-              <div className="relative -mx-3 -my-3 px-3 py-3">
-                {/* 起始旗子 */}
-                <div className="relative transform -translate-x-1/2 -translate-y-6">
-                  {/* 旗杆 */}
-                  <div className="w-0.5 h-6 bg-green-600 absolute left-1/2 top-0 transform -translate-x-1/2 shadow-sm"></div>
-                  {/* 旗面 */}
-                  <div className="w-4 h-3 bg-gradient-to-r from-green-500 to-emerald-500 absolute left-0.5 top-0 shadow-md animate-[flagFlutter_1.5s_ease-in-out_infinite] rounded-r-sm">
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent rounded-r-sm"></div>
-                  </div>
-                  {/* 旗子阴影 */}
-                  <div className="absolute top-6 left-0 w-4 h-1 bg-black/10 rounded-full blur-sm"></div>
-                </div>
-                
-                {/* 标签 */}
-                <div className="absolute top-full mt-2 transform -translate-x-1/2 opacity-0 hover:opacity-100 transition-opacity duration-150 pointer-events-none">
-                  <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap shadow-md">
-                    起点
-                  </div>
-                </div>
-              </div>
-            </div>
 
-            {/* 中间章节点 */}
-            {[
-              { position: 27, label: "出行量趋势", id: "daily-trips" },
-              { position: 55, label: "违法数据", id: "violation-trends" }
-            ].map((section, index) => (
-              <div
-                key={index}
-                className="absolute top-1/2 transform -translate-y-1/2 opacity-80 hover:opacity-100 transition-all duration-200 cursor-pointer"
-                style={{ left: `${section.position}%` }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const targetElement = document.getElementById(section.id);
-                  if (targetElement) {
-                    targetElement.scrollIntoView({
-                      behavior: 'smooth',
-                      block: 'start'
-                    });
-                  }
-                }}
-              >
-                <div className="relative -mx-3 -my-3 px-3 py-3">
-                  <div className="w-3 h-3 bg-white/90 rounded-full transform -translate-x-1/2 hover:bg-white hover:scale-125 transition-all duration-150 shadow-sm"></div>
-                  
-                  <div className="absolute top-full mt-2 transform -translate-x-1/2 opacity-0 hover:opacity-100 transition-opacity duration-150 pointer-events-none">
-                    <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap shadow-md">
-                      {section.label}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {/* 终点旗子 */}
-            <div
-              className="absolute top-1/2 transform -translate-y-1/2 opacity-80 hover:opacity-100 hover:scale-110 active:scale-95 transition-all duration-300 cursor-pointer animate-[flagWave_2s_ease-in-out_infinite_0.5s] group"
-              style={{ left: '100%' }}
-              onClick={(e) => {
-                e.stopPropagation();
-                const targetElement = document.getElementById('medical-impact');
-                if (targetElement) {
-                  targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                  });
-                }
-              }}
-            >
-              <div className="relative -mx-3 -my-3 px-3 py-3">
-                {/* 终点旗子 */}
-                <div className="relative transform -translate-x-full -translate-y-6">
-                  {/* 旗杆 */}
-                  <div className="w-0.5 h-6 bg-red-600 absolute right-0 top-0 shadow-sm"></div>
-                  {/* 旗面 */}
-                  <div className="w-4 h-3 bg-gradient-to-r from-red-500 to-rose-500 absolute right-0.5 top-0 shadow-md animate-[flagFlutter_1.5s_ease-in-out_infinite_0.3s] rounded-l-sm group-hover:shadow-lg group-hover:shadow-red-500/30 group-active:shadow-xl group-active:shadow-red-500/50 transition-shadow duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent rounded-l-sm group-hover:from-white/40 transition-all duration-300"></div>
-                    {/* 悬浮时的光晕效果 */}
-                    <div className="absolute inset-0 bg-red-400/0 group-hover:bg-red-400/20 rounded-l-sm transition-all duration-300"></div>
-                  </div>
-                  {/* 旗子阴影 */}
-                  <div className="absolute top-6 right-0 w-4 h-1 bg-black/10 rounded-full blur-sm"></div>
-                </div>
-                
-                {/* 标签 */}
-                <div className="absolute top-full mt-2 transform -translate-x-1/2 opacity-0 hover:opacity-100 transition-opacity duration-150 pointer-events-none">
-                  <div className="bg-slate-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap shadow-md">
-                    医疗数据
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
           
+
+
           {/* 进度百分比提示 */}
           <div 
             className="absolute opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none"
@@ -274,6 +183,38 @@ export function GlobalProgressBar() {
         </div>
         
       </div>
+
+      {/* 目录菜单 */}
+      {isMenuOpen && (
+        <div className="absolute bottom-full mb-4 left-0 right-0 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-lg shadow-xl border border-slate-200/50 dark:border-slate-600/50 overflow-hidden animate-in slide-in-from-bottom-2 duration-300">
+          <div className="py-2">
+            <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2 px-3 uppercase tracking-wide">
+              快速导航
+            </div>
+            <div className="space-y-0">
+              {[
+                { id: 'top', label: '🏁 页面顶部' },
+                { id: 'daily-trips', label: '📊 出行量趋势' },
+                { id: 'violation-trends', label: '⚠️ 违法数据' },
+                { id: 'spatio-temporal-clustering', label: '🗺️ 时空分析' },
+                { id: 'medical-impact', label: '🏥 医疗影响' },
+                { id: 'rider-pressure', label: '🚴 逐单争速' }
+              ].map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleMenuItemClick(item.id)}
+                  className="w-full text-left px-3 py-2.5 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100/70 dark:hover:bg-slate-700/70 transition-all duration-200 hover:translate-x-1 border-l-2 border-transparent hover:border-blue-400"
+                >
+                  <span className="flex items-center space-x-3">
+                    <span className="text-base leading-none">{item.label.split(' ')[0]}</span>
+                    <span className="font-medium">{item.label.split(' ').slice(1).join(' ')}</span>
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
