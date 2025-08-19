@@ -62,9 +62,9 @@ export function RiderComments() {
         </div>
       </div>
 
-      {/* 评论展示区域 */}
+      {/* 弹幕展示区域 */}
       <div className="relative z-20 h-96 w-full overflow-hidden">
-        <FloatingComments />
+        <BilibiliDanmakuContainer />
       </div>
 
       {/* 底部描述 */}
@@ -91,202 +91,306 @@ export function RiderComments() {
   );
 }
 
-// 简洁漂浮评论组件
-function FloatingComments() {
-  const [bubbles, setBubbles] = useState<Array<{
+// B站式弹幕容器组件
+function BilibiliDanmakuContainer() {
+  const [danmakuData, setDanmakuData] = useState<Array<{
     id: string;
     comment: typeof socialMediaComments[0];
-    x: number;
-    y: number;
-    scale: number;
-    opacity: number;
-    createdAt: number;
+    animationDelay: number;
+    duration: number;
+    track: number;
+    isExpanded: boolean;
+    pausedAt?: number; // 暂停时的动画进度
   }>>([]);
 
-  const MAX_BUBBLES = 8; // 同时存在的最大气泡数
-  const SPAWN_INTERVAL = 2500; // 生成间隔（2.5秒）
+  const CONTAINER_HEIGHT = 384; // 96 * 4 (h-96)
+  const TRACK_HEIGHT = 55;
+  const TRACK_COUNT = Math.floor(CONTAINER_HEIGHT / TRACK_HEIGHT);
+  const MAX_DANMAKUS = 16; // 减少弹幕数量防止重叠
 
-  // 创建新气泡
-  const createNewBubble = useCallback(() => {
-    const comment = socialMediaComments[Math.floor(Math.random() * socialMediaComments.length)];
+  // 创建弹幕数据，优化分布和防止重叠
+  const generateDanmakuData = useCallback(() => {
+    const danmakus: typeof danmakuData = [];
     
-    return {
-      id: `bubble-${Date.now()}-${Math.random()}`,
-      comment,
-      x: Math.random() * 85 + 7.5, // 7.5-92.5% 横向随机位置，避免边缘
-      y: Math.random() * 75 + 12.5, // 12.5-87.5% 纵向随机位置
-      scale: 0.3, // 从很小开始
-      opacity: 0, // 从透明开始
-      createdAt: Date.now()
-    };
-  }, []);
-
-  // 生成气泡系统
-  useEffect(() => {
-    // 初始生成几个气泡
-    const initialBubbles = Array.from({ length: 3 }, () => createNewBubble());
-    setBubbles(initialBubbles);
-
-    // 定期生成新气泡
-    const spawnTimer = setInterval(() => {
-      setBubbles(prev => {
-        if (prev.length < MAX_BUBBLES) {
-          return [...prev, createNewBubble()];
-        }
-        return prev;
+    // 随机选取评论子集
+    const shuffled = [...socialMediaComments]
+      .sort(() => 0.5 - Math.random())
+      .slice(0, MAX_DANMAKUS); // 限制数量
+    
+    // 轨道使用情况跟踪，防止重叠
+    const trackUsage = new Array(TRACK_COUNT).fill(0);
+    
+    shuffled.forEach((comment, index) => {
+      // 找到使用最少的轨道
+      const minUsage = Math.min(...trackUsage);
+      const availableTracks = trackUsage
+        .map((usage, trackIndex) => ({ usage, trackIndex }))
+        .filter(t => t.usage === minUsage)
+        .map(t => t.trackIndex);
+      
+      const selectedTrack = availableTracks[Math.floor(Math.random() * availableTracks.length)];
+      trackUsage[selectedTrack]++;
+      
+      // 随机化延迟和持续时间，避免过于整齐
+      const randomDelay = Math.random() * 8 + index * 3 + Math.random() * 2;
+      const randomDuration = 15 + Math.random() * 10; // 15-25秒
+      
+      danmakus.push({
+        id: `danmaku-${index}-${Date.now()}-${Math.random()}`,
+        comment,
+        animationDelay: randomDelay,
+        duration: randomDuration,
+        track: selectedTrack,
+        isExpanded: false,
+        pausedAt: undefined
       });
-    }, SPAWN_INTERVAL);
+    });
+    
+    return danmakus;
+  }, [TRACK_COUNT, MAX_DANMAKUS]);
 
-    return () => clearInterval(spawnTimer);
-  }, [createNewBubble]);
-
-  // 简洁动画更新系统
-  useEffect(() => {
-    const animationFrame = setInterval(() => {
-      setBubbles(prev => {
-        const now = Date.now();
-        
-        return prev
-          .map(bubble => {
-            const age = now - bubble.createdAt;
-            const lifeProgress = age / 10000; // 10秒生命周期
-            
-            // 简单的大小变化（由小到大再变小）
-            let newScale;
-            if (lifeProgress < 0.1) {
-              // 淡入阶段：从小变大
-              newScale = 0.3 + (lifeProgress * 7); // 0.3 -> 1.0
-            } else if (lifeProgress > 0.8) {
-              // 淡出阶段：逐渐变小
-              newScale = 1.0 - ((lifeProgress - 0.8) * 3.5); // 1.0 -> 0.3
-            } else {
-              // 稳定显示阶段
-              newScale = 0.8 + (bubble.comment.likes / 500) * 0.3; // 基于点赞数调整大小
-            }
-            
-            // 简单的透明度变化
-            let newOpacity;
-            if (lifeProgress < 0.1) {
-              // 淡入阶段
-              newOpacity = lifeProgress * 10;
-            } else if (lifeProgress > 0.8) {
-              // 淡出阶段
-              newOpacity = (1 - lifeProgress) * 5;
-            } else {
-              // 稳定显示阶段
-              newOpacity = 1;
-            }
-            
-            return {
-              ...bubble,
-              scale: Math.max(0.3, Math.min(1.2, newScale)),
-              opacity: Math.max(0, Math.min(1, newOpacity))
+  // 切换展开状态，保存/恢复动画进度
+  const toggleExpanded = useCallback((danmakuId: string) => {
+    setDanmakuData(prev => 
+      prev.map(danmaku => {
+        if (danmaku.id === danmakuId) {
+          if (danmaku.isExpanded) {
+            // 收起时：恢复动画，从暂停位置继续
+            return { 
+              ...danmaku, 
+              isExpanded: false,
+              pausedAt: undefined // 清除暂停状态，让动画继续
             };
-          })
-          .filter(bubble => {
-            const age = now - bubble.createdAt;
-            return age < 10000; // 10秒后移除
-          });
-      });
-    }, 100); // 10fps 更新，减少计算量
-
-    return () => clearInterval(animationFrame);
+          } else {
+            // 展开时：暂停动画并记录当前进度
+            const currentTime = Date.now();
+            const elapsed = (currentTime - (danmaku.pausedAt || currentTime - danmaku.animationDelay * 1000)) / 1000;
+            return { 
+              ...danmaku, 
+              isExpanded: true,
+              pausedAt: elapsed // 记录当前动画进度
+            };
+          }
+        }
+        return danmaku;
+      })
+    );
   }, []);
+
+  // 初始化弹幕
+  useEffect(() => {
+    setDanmakuData(generateDanmakuData());
+    
+    // 定期更新弹幕数据实现循环
+    const resetTimer = setInterval(() => {
+      setDanmakuData(generateDanmakuData());
+    }, 150000); // 2.5分钟更新一次
+    
+    return () => clearInterval(resetTimer);
+  }, [generateDanmakuData]);
 
   return (
-    <div className="absolute inset-0 w-full h-full">
-      {/* 评论流指示器 */}
-      <div className="absolute top-4 right-4 z-30 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md px-4 py-2 rounded-full text-sm font-medium text-slate-700 dark:text-slate-300 border border-white/50 dark:border-slate-700/50 shadow-lg">
-        <div className="flex items-center space-x-2">
-          <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full animate-pulse"></div>
-          <span>评论流</span>
-          <span className="text-xs text-slate-500 dark:text-slate-400">·</span>
-          <span className="text-xs text-slate-500 dark:text-slate-400">{bubbles.length}</span>
-        </div>
-      </div>
-      
-      {/* 简洁气泡渲染 */}
-      {bubbles.map((bubble) => (
-        <SimpleBubble
-          key={bubble.id}
-          comment={bubble.comment}
-          x={bubble.x}
-          y={bubble.y}
-          scale={bubble.scale}
-          opacity={bubble.opacity}
+    <div className="relative w-full h-full overflow-hidden">
+      {/* 弹幕渲染 */}
+      {danmakuData.map((danmaku) => (
+        <BilibiliDanmaku
+          key={danmaku.id}
+          danmaku={danmaku}
+          trackHeight={TRACK_HEIGHT}
+          onToggleExpand={toggleExpanded}
         />
       ))}
-      
-
     </div>
   );
 }
 
-// 简洁气泡组件
-function SimpleBubble({ 
-  comment, 
-  x, 
-  y, 
-  scale, 
-  opacity
+// B站式单个弹幕组件 - 使用纯CSS动画，支持点击展开
+function BilibiliDanmaku({ 
+  danmaku, 
+  trackHeight,
+  onToggleExpand
 }: {
-  comment: typeof socialMediaComments[0];
-  x: number;
-  y: number;
-  scale: number;
-  opacity: number;
+  danmaku: {
+    id: string;
+    comment: typeof socialMediaComments[0];
+    animationDelay: number;
+    duration: number;
+    track: number;
+    isExpanded: boolean;
+    pausedAt?: number;
+  };
+  trackHeight: number;
+  onToggleExpand: (id: string) => void;
 }) {
-  const color = emotionColors[comment.emotion as keyof typeof emotionColors] || "#6b7280";
+  const color = emotionColors[danmaku.comment.emotion as keyof typeof emotionColors] || "#6b7280";
+  
+  // 计算展开时的最佳位置，避免被截断
+  const getExpandedPosition = () => {
+    const CONTAINER_HEIGHT = 384;
+    const EXPANDED_HEIGHT = 200; // 展开卡片预计高度
+    const currentTop = danmaku.track * trackHeight + 8;
+    
+    // 如果展开后会超出容器底部，则向上调整
+    if (currentTop + EXPANDED_HEIGHT > CONTAINER_HEIGHT) {
+      return Math.max(8, CONTAINER_HEIGHT - EXPANDED_HEIGHT - 16);
+    }
+    
+    return currentTop;
+  };
+  
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // 只有在收起状态下才允许点击展开
+    if (!danmaku.isExpanded) {
+      onToggleExpand(danmaku.id);
+    }
+  };
   
   return (
     <div
-      className="absolute transition-all duration-500 ease-out"
+      className={`absolute select-none transition-all duration-300 ${
+        danmaku.isExpanded ? 'whitespace-normal' : 'whitespace-nowrap cursor-pointer'
+      }`}
       style={{
-        left: `${x}%`,
-        top: `${y}%`,
-        transform: `translate(-50%, -50%) scale(${scale})`,
-        opacity: opacity,
-        zIndex: Math.floor(opacity * 100) + 10,
-        pointerEvents: opacity > 0.8 ? 'auto' : 'none'
+        top: danmaku.isExpanded ? `${getExpandedPosition()}px` : `${danmaku.track * trackHeight + 8}px`,
+        left: '100%',
+        animationName: danmaku.isExpanded ? 'none' : 'danmaku-move',
+        animationDuration: `${danmaku.duration}s`,
+        animationTimingFunction: 'linear',
+        animationIterationCount: 'infinite',
+        animationDelay: `${danmaku.animationDelay}s`,
+        animationPlayState: danmaku.isExpanded ? 'paused' : 'running',
+        zIndex: danmaku.isExpanded ? 1000 : 10,
+        transform: danmaku.isExpanded ? 'translateX(-40vw)' : 'none',
+        transition: danmaku.isExpanded 
+          ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), top 0.5s cubic-bezier(0.4, 0, 0.2, 1)' 
+          : 'none',
       }}
+      onMouseEnter={(e) => {
+        if (!danmaku.isExpanded) {
+          e.currentTarget.style.animationPlayState = 'paused';
+          e.currentTarget.style.transform = 'scale(1.05)';
+          e.currentTarget.style.zIndex = '100';
+        }
+      }}
+      onMouseLeave={(e) => {
+        if (!danmaku.isExpanded) {
+          e.currentTarget.style.animationPlayState = 'running';
+          e.currentTarget.style.transform = 'scale(1)';
+          e.currentTarget.style.zIndex = '10';
+        }
+      }}
+      onClick={handleClick}
     >
       <div
-        className="relative p-4 rounded-xl bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm max-w-sm cursor-pointer group hover:scale-102 transition-all duration-200 border shadow-lg hover:shadow-xl"
+        className={`relative overflow-hidden transition-all duration-500 ease-out ${
+          danmaku.isExpanded 
+            ? 'bg-white/98 dark:bg-slate-800/98 backdrop-blur-lg shadow-2xl rounded-2xl border border-white/20 dark:border-slate-600/20' 
+            : 'bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm shadow-md rounded-full border hover:shadow-lg'
+        }`}
         style={{
-          borderColor: `${color}40`,
-          boxShadow: `0 4px 20px ${color}15, 0 2px 8px rgba(0,0,0,0.1)`
+          borderLeftColor: color,
+          borderLeftWidth: danmaku.isExpanded ? '4px' : '3px',
+          borderLeftStyle: 'solid',
+          width: danmaku.isExpanded ? '500px' : 'auto',
+          maxWidth: danmaku.isExpanded ? '500px' : '320px',
+          minWidth: danmaku.isExpanded ? '400px' : 'auto',
+          padding: danmaku.isExpanded ? '24px' : '6px 12px',
+          boxShadow: danmaku.isExpanded 
+            ? `0 25px 50px -12px ${color}15, 0 25px 25px -12px ${color}10, 0 0 0 1px ${color}05`
+            : `0 4px 20px ${color}10, 0 2px 8px rgba(0,0,0,0.1)`
         }}
       >
-        {/* 左侧情绪指示条 */}
-        <div 
-          className="absolute left-0 top-0 bottom-0 w-1 rounded-l-xl"
-          style={{ backgroundColor: color }}
-        />
-        
-        {/* 评论内容 */}
-        <div className="relative">
-          <p className="text-sm font-medium leading-relaxed mb-3 text-slate-800 dark:text-slate-100">
-&ldquo;{comment.text}&rdquo;
-          </p>
-          
-          {/* 底部信息栏 */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 text-slate-600 dark:text-slate-400">
-              <span className="text-sm">❤️</span>
-              <span className="font-medium text-sm">{comment.likes}</span>
+        {danmaku.isExpanded ? (
+          // 展开状态 - 美化布局
+          <div className="space-y-4 animate-in fade-in duration-300">
+            {/* 头部区域 */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200/80 dark:border-slate-600/50">
+              <div className="flex items-center space-x-3">
+                <div 
+                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: color }}
+                />
+                <span 
+                  className="px-3 py-1.5 rounded-full text-sm font-medium"
+                  style={{ 
+                    backgroundColor: `${color}15`,
+                    color: color
+                  }}
+                >
+                  {getEmotionLabel(danmaku.comment.emotion)}
+                </span>
+              </div>
+              <button 
+                className="group px-4 py-2 rounded-full text-sm font-medium bg-slate-200 hover:bg-slate-300 dark:bg-slate-600 dark:hover:bg-slate-500 text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-white transition-all duration-200 shadow-sm hover:shadow-md"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleExpand(danmaku.id);
+                }}
+              >
+                <span className="flex items-center space-x-1">
+                  <svg className="w-3 h-3 transition-transform group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                  <span>收起</span>
+                </span>
+              </button>
             </div>
             
-            <div 
-              className="px-2 py-1 rounded-md text-xs font-medium"
+            {/* 主要内容 */}
+            <div className="space-y-3">
+              <blockquote className="text-base font-medium text-slate-900 dark:text-slate-100 leading-relaxed italic border-l-4 border-slate-200 dark:border-slate-600 pl-4">
+                "{danmaku.comment.text}"
+              </blockquote>
+            </div>
+            
+            {/* 底部统计 */}
+            <div className="flex items-center justify-between pt-3 border-t border-slate-200/80 dark:border-slate-600/50">
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 text-slate-500 dark:text-slate-400">
+                  <span className="text-sm">❤️</span>
+                  <span className="text-sm font-medium">{danmaku.comment.likes.toLocaleString()}</span>
+                  <span className="text-xs">点赞</span>
+                </div>
+              </div>
+              <div className="text-xs text-slate-400 opacity-60">
+                使用上方按钮收起
+              </div>
+            </div>
+          </div>
+        ) : (
+          // 收缩状态 - 简洁显示
+          <div className="flex items-center space-x-2 text-sm py-1">
+            <span 
+              className="px-2 py-0.5 rounded-md text-xs font-medium flex-shrink-0"
               style={{ 
                 backgroundColor: `${color}20`,
                 color: color
               }}
             >
-              {getEmotionLabel(comment.emotion)}
+              {getEmotionLabel(danmaku.comment.emotion)}
+            </span>
+            
+            <span className="text-slate-800 dark:text-slate-100 truncate font-medium flex-1">
+              "{danmaku.comment.text}"
+            </span>
+            
+            <div className="flex items-center space-x-1 text-slate-500 dark:text-slate-400 flex-shrink-0">
+              <span className="text-xs">❤️</span>
+              <span className="text-xs font-medium">{danmaku.comment.likes}</span>
             </div>
           </div>
-        </div>
+        )}
+        
+        {/* 展开提示动画 */}
+        {!danmaku.isExpanded && (
+          <div className="absolute inset-0 pointer-events-none">
+            <div 
+              className="absolute inset-0 opacity-0 hover:opacity-10 transition-opacity duration-200 rounded-full"
+              style={{ backgroundColor: color }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
