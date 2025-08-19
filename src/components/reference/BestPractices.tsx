@@ -91,11 +91,11 @@ export function BestPractices() {
             {/* 浙江e行在线特点 */}
             <div className="space-y-4">
               <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20">
-                <h4 className="font-semibold mb-3 text-green-700">"浙江e行在线"平台特点</h4>
+                <h4 className="font-semibold mb-3 text-green-700">&quot;浙江e行在线&quot;平台特点</h4>
                 <div className="space-y-3">
                   <div className="p-2 bg-white/60 dark:bg-white/10 rounded">
                     <div className="font-medium text-sm">浙品码机制</div>
-                    <div className="text-xs text-gray-600">二维码标注车辆"身份"</div>
+                    <div className="text-xs text-gray-600">二维码标注车辆&quot;身份&quot;</div>
                   </div>
                   <div className="p-2 bg-white/60 dark:bg-white/10 rounded">
                     <div className="font-medium text-sm">一码知全貌</div>
@@ -136,7 +136,7 @@ export function BestPractices() {
 
           <div className="mb-6">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-              借鉴深圳分类管理与浙江数字化追溯经验，广州可构建"全链条监管+分类治理"体系：
+              借鉴深圳分类管理与浙江数字化追溯经验，广州可构建&quot;全链条监管+分类治理&quot;体系：
             </p>
           </div>
 
@@ -157,7 +157,7 @@ export function BestPractices() {
                     <div className="w-16 h-6 bg-gray-400 rounded text-white text-xs flex items-center justify-center mr-2">白牌</div>
                     <span>个人用户</span>
                   </div>
-                  <p className="text-gray-600 text-xs mt-2">企业统一申领并承担管理责任，实现"人车关联"</p>
+                  <p className="text-gray-600 text-xs mt-2">企业统一申领并承担管理责任，实现&quot;人车关联&quot;</p>
                 </div>
               </div>
 
@@ -167,7 +167,7 @@ export function BestPractices() {
                   建立数字化平台
                 </h4>
                 <div className="text-sm space-y-2">
-                  <p>引入"广品码"机制，为每辆车及电池赋唯一身份码</p>
+                  <p>引入&quot;广品码&quot;机制，为每辆车及电池赋唯一身份码</p>
                   <div className="flex flex-wrap gap-1">
                     <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded text-xs">生产</span>
                     <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded text-xs">销售</span>
@@ -200,7 +200,7 @@ export function BestPractices() {
                   压实主体责任
                 </h4>
                 <div className="text-sm space-y-2">
-                  <p className="font-medium">要求外卖平台落实"五个一律"管理：</p>
+                  <p className="font-medium">要求外卖平台落实&quot;五个一律&quot;管理：</p>
                   <div className="grid grid-cols-1 gap-1">
                     <div className="bg-red-100 dark:bg-red-900/30 p-2 rounded text-xs">统一车辆 → 统一培训 → 统一编码 → 统一考核 → 违法退出</div>
                   </div>
@@ -276,7 +276,6 @@ const zhejiangFlowOption: EChartsOption = {
   series: [
     {
       type: 'sankey',
-      layout: 'none',
       emphasis: { focus: 'adjacency' },
       data: [
         { name: '生产环节' },

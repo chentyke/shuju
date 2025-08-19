@@ -1,12 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactECharts from "echarts-for-react";
 import { useInView } from "react-intersection-observer";
 import { hourlyViolationData, violationTypesByTime } from "@/data/spatioTemporalViolations";
 
 export function ViolationTimeDistribution() {
-  const _chartRef = useRef<any>(null);
   const [currentHour, setCurrentHour] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const { ref, inView } = useInView({

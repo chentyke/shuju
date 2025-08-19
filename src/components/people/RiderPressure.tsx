@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react"; // eslint-disable-line @typescript-eslint/no-unused-vars
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Section } from "@/components/common/Section";
 import { riderViolationRatioData, violationTypeData, riderBasicData, incomeAndPenaltyData, socialMediaComments, emotionColors } from "@/data/riderViolations";
@@ -280,7 +280,7 @@ function FloatingComments() { // eslint-disable-line @typescript-eslint/no-unuse
 
   return (
     <div className="absolute inset-0">
-      {visibleComments.map((item, index) => (
+      {visibleComments.map((item) => (
         <FloatingBubble
           key={item.comment.id}
           comment={item.comment}
@@ -289,7 +289,6 @@ function FloatingComments() { // eslint-disable-line @typescript-eslint/no-unuse
           rotation={item.rotation}
           scale={item.scale}
           delay={item.animationDelay}
-          index={index}
         />
       ))}
     </div>
@@ -297,14 +296,13 @@ function FloatingComments() { // eslint-disable-line @typescript-eslint/no-unuse
 }
 
 // 单个漂浮气泡组件
-function FloatingBubble({ // eslint-disable-line @typescript-eslint/no-unused-vars 
+function FloatingBubble({ 
   comment, 
   x, 
   y, 
   rotation, 
   scale, 
-  delay, 
-  index 
+  delay
 }: {
   comment: typeof socialMediaComments[0];
   x: number;
@@ -312,7 +310,6 @@ function FloatingBubble({ // eslint-disable-line @typescript-eslint/no-unused-va
   rotation: number;
   scale: number;
   delay: number;
-  index: number; // eslint-disable-line @typescript-eslint/no-unused-vars
 }) {
   const color = emotionColors[comment.emotion as keyof typeof emotionColors] || "#6b7280";
   

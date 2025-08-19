@@ -120,7 +120,7 @@ export function CausalAnalysis() {
                   <span>违规解码车销量</span>
                   <span className="font-bold text-orange-600">10万+辆</span>
                 </div>
-                <p className="text-gray-600 mt-2">电商平台公然销售"可解锁限速"车型</p>
+                <p className="text-gray-600 mt-2">电商平台公然销售&quot;可解锁限速&quot;车型</p>
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@ export function CausalAnalysis() {
                   <span className="font-bold text-red-600">50%</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span>"被迫冒险"骑手比例</span>
+                  <span>&quot;被迫冒险&quot;骑手比例</span>
                   <span className="font-bold text-red-600">80%</span>
                 </div>
               </div>

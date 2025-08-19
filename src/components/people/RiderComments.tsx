@@ -206,7 +206,7 @@ function FloatingComments() {
       </div>
       
       {/* 简洁气泡渲染 */}
-      {bubbles.map((bubble, index) => (
+      {bubbles.map((bubble) => (
         <SimpleBubble
           key={bubble.id}
           comment={bubble.comment}
@@ -214,7 +214,6 @@ function FloatingComments() {
           y={bubble.y}
           scale={bubble.scale}
           opacity={bubble.opacity}
-          index={index}
         />
       ))}
       
@@ -229,15 +228,13 @@ function SimpleBubble({
   x, 
   y, 
   scale, 
-  opacity,
-  index 
+  opacity
 }: {
   comment: typeof socialMediaComments[0];
   x: number;
   y: number;
   scale: number;
   opacity: number;
-  index: number; // eslint-disable-line @typescript-eslint/no-unused-vars
 }) {
   const color = emotionColors[comment.emotion as keyof typeof emotionColors] || "#6b7280";
   

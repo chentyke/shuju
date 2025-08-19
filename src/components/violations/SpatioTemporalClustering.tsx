@@ -1,16 +1,10 @@
 "use client";
 
-import { useInView } from "react-intersection-observer";
 import { Section } from "@/components/common/Section";
 import { ViolationTimeDistribution } from "@/components/charts/ViolationTimeDistribution";
 import { RestrictedRoadsMap } from "@/components/maps/RestrictedRoadsMap";
 
 export function SpatioTemporalClustering() {
-  const { ref: _titleRef, inView: _titleInView } = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
-
   return (
     <Section
       id="spatio-temporal-clustering"
