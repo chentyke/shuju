@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { socialMediaComments, emotionColors } from "@/data/riderViolations";
 
 export function RiderComments() {
@@ -199,7 +199,7 @@ function FloatingBubble({
   // 浮动动画循环
   useEffect(() => {
     let animationFrame: number;
-    let startTime = Date.now();
+    const startTime = Date.now();
     
     const animate = () => {
       const elapsed = (Date.now() - startTime) / 1000;
@@ -292,7 +292,7 @@ function FloatingBubble({
           
           {/* 消息内容 */}
           <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed mb-2">
-            "{comment.text}"
+            &ldquo;{comment.text}&rdquo;
           </p>
           
           {/* 底部信息 */}

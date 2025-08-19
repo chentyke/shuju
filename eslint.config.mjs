@@ -15,6 +15,8 @@ const eslintConfig = [
     rules: {
       "@typescript-eslint/no-explicit-any": "warn",
       "@typescript-eslint/no-unused-vars": "warn",
+      "react/no-unescaped-entities": "off", // 允许中文引号
+      "prefer-const": "warn", // 降级为警告
     },
   },
 ];

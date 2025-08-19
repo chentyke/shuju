@@ -1,16 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import CountUp from "react-countup";
-import { useInView } from "react-intersection-observer";
 import { Section } from "@/components/common/Section";
 
 export function Hero() {
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const { ref: metricsRef, inView: metricsInView } = useInView({
-    threshold: 0.3,
-    triggerOnce: true,
-  });
 
   useEffect(() => {
     if (titleRef.current) {

@@ -43,7 +43,7 @@ export function TitlePage() {
         {/* 副标题 */}
         <div className="mb-12">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium text-blue-200 mb-4 leading-relaxed">
-            电动自行车跃居出行"头牌"
+            电动自行车跃居出行&ldquo;头牌&rdquo;
           </h2>
           <h3 className="text-xl md:text-2xl lg:text-3xl font-light text-slate-300 leading-relaxed">
             背后的困局
