@@ -340,7 +340,7 @@ function BilibiliDanmaku({
             {/* 主要内容 */}
             <div className="space-y-3">
               <blockquote className="text-base font-medium text-slate-900 dark:text-slate-100 leading-relaxed italic border-l-4 border-slate-200 dark:border-slate-600 pl-4">
-                "{danmaku.comment.text}"
+                &ldquo;{danmaku.comment.text}&rdquo;
               </blockquote>
             </div>
             
@@ -372,7 +372,7 @@ function BilibiliDanmaku({
             </span>
             
             <span className="text-slate-800 dark:text-slate-100 truncate font-medium flex-1">
-              "{danmaku.comment.text}"
+              &ldquo;{danmaku.comment.text}&rdquo;
             </span>
             
             <div className="flex items-center space-x-1 text-slate-500 dark:text-slate-400 flex-shrink-0">
