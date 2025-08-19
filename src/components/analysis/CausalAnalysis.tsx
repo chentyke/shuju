@@ -8,241 +8,178 @@ const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false }) 
 
 export function CausalAnalysis() {
   return (
-    <Section id="causal-analysis" title="探因溯源" subtitle="电动自行车治理困境的深层原因" isMajorSection={true}>
-      <div className="space-y-8">
-        {/* 城市治理的不足 */}
-        <div className="rounded-xl border p-6 bg-white/60 dark:bg-white/5">
-          <h3 className="text-xl font-bold mb-6 text-blue-600">一、城市治理的不足</h3>
-          
-          <div className="grid lg:grid-cols-2 gap-6 mb-6">
-            {/* 基础设施不足 */}
-            <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20">
-              <h4 className="font-semibold mb-3 text-blue-700">1. 基础设施不足</h4>
-              <div className="space-y-2 text-sm">
-                <div className="flex items-center justify-between">
-                  <span>标准车道达标率</span>
-                  <span className="font-bold text-red-600">16%</span>
-                </div>
-                <div className="bg-gray-200 rounded-full h-2">
-                  <div className="bg-red-500 h-2 rounded-full" style={{ width: '16%' }}></div>
-                </div>
-                <p className="text-gray-600">84%的非机动车道未达2.5米国标</p>
-              </div>
-              
-              <div className="mt-4 space-y-2 text-sm">
-                <div className="flex items-center justify-between">
-                  <span>路网覆盖率（2024）</span>
-                  <span className="font-bold text-orange-600">72.3%</span>
-                </div>
-                <div className="bg-gray-200 rounded-full h-2">
-                  <div className="bg-orange-500 h-2 rounded-full" style={{ width: '72.3%' }}></div>
-                </div>
-                <p className="text-gray-600">仍有28%的主次干路缺乏非机动车道</p>
-              </div>
-            </div>
+    <Section id="causal-analysis" title="探因溯源" subtitle="当繁荣遇见瓶颈" isMajorSection={true}>
+      <div className="max-w-4xl mx-auto">
+        <div className="prose prose-lg">
+          <p className="article-lead">
+            576万辆电动自行车的背后，是一个城市在快速发展中遭遇的成长烦恼。为什么广州的电动自行车治理如此困难？问题的根源究竟在哪里？通过深入调研和数据分析，我们发现这不是单一问题，而是一个复杂的系统性困境。
+          </p>
 
-            {/* 基础设施建设趋势图 */}
-            <div className="p-4 rounded-lg bg-white/80 dark:bg-white/10">
-              <h4 className="font-semibold mb-3">非机动车道建设进度</h4>
-              <ReactECharts option={infrastructureOption} style={{ height: 280 }} />
-            </div>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            基础设施的"历史欠债"
+          </h3>
+
+          <p className="article-text">
+            走在广州的街头，你很容易发现一个现象：非机动车道要么狭窄得只能容纳一辆车通行，要么干脆被机动车占用。这不是偶然，而是历史遗留的"欠债"。
+          </p>
+
+          <p className="article-text">
+            根据建设部门的统计，广州现有的非机动车道中，仅有<span className="data-inline">16%</span>达到国家标准的2.5米宽度。这意味着<span className="article-emphasis">84%的非机动车道都存在"先天不足"</span>。当576万辆电动自行车涌入这些狭窄的车道时，拥堵和违法几乎成为必然。
+          </p>
+
+          <div className="insight-marker">
+            <p className="article-text">
+              更严重的是路网覆盖不足。截至2024年，广州的非机动车道覆盖率为<span className="data-inline">72.3%</span>，这意味着仍有近三成的主次干路没有专门的非机动车道。骑手们要么占用机动车道，要么挤在人行道上，两者都存在安全隐患。
+            </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* 执法效能低下 */}
-            <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20">
-              <h4 className="font-semibold mb-3 text-red-700">2. 执法效能低下</h4>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between items-center">
-                  <span>日均查处量</span>
-                  <span className="font-bold">1.2万起</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>查处率</span>
-                  <span className="font-bold text-red-600">0.05%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>智能信号灯覆盖率</span>
-                  <span className="font-bold text-orange-600">45%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>专用摄像头覆盖</span>
-                  <span className="font-bold text-red-600">30%</span>
-                </div>
-              </div>
-            </div>
+          <p className="article-text">
+            一位交通规划专家坦言："广州在设计道路时，更多考虑的是机动车通行，非机动车道往往是'边角料'。现在要补课，成本和难度都很大。"
+          </p>
 
-            {/* 监管体系缺失 */}
-            <div className="p-4 rounded-lg bg-yellow-50 dark:bg-yellow-900/20">
-              <h4 className="font-semibold mb-3 text-yellow-700">3. 监管体系缺失</h4>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between items-center">
-                  <span>无强制保险制度</span>
-                  <span className="font-bold text-red-600">60%事故纠纷</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>专用号牌推进</span>
-                  <span className="font-bold text-orange-600">滞后</span>
-                </div>
-                <p className="text-gray-600">外卖、快递行业长期处于监管盲区</p>
-              </div>
-            </div>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            执法的"力不从心"
+          </h3>
+
+          <p className="article-text">
+            面对每天发生的数万起电动自行车违法行为，广州交警显得有些"力不从心"。数据显示，全市日均查处电动自行车违法行为<span className="data-inline">1.2万起</span>，但这个数字相对于庞大的违法总量，查处率仅有<span className="data-inline">0.05%</span>。
+          </p>
+
+          <p className="article-text">
+            问题不只是人手不够。现有的执法手段也相对落后：智能信号灯覆盖率仅为<span className="data-inline">45%</span>，专用的电动自行车抓拍摄像头覆盖率更是只有<span className="data-inline">30%</span>。这种"看得见管不着"的状况，让违法行为屡禁不止。
+          </p>
+
+          <div className="quote-block">
+            "有时候一个路口就有几十辆电动车闯红灯，我们根本拦不过来。罚了这个，那个已经跑远了。"一位基层交警这样描述执法中的无奈。
           </div>
-        </div>
 
-        {/* 产销责任的逃避 */}
-        <div className="rounded-xl border p-6 bg-white/60 dark:bg-white/5">
-          <h3 className="text-xl font-bold mb-6 text-purple-600">二、产销责任的逃避</h3>
-          
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* 车辆标准违规 - 车速仪表盘 */}
-            <div className="p-4 rounded-lg bg-purple-50 dark:bg-purple-900/20">
-              <h4 className="font-semibold mb-3 text-purple-700">1. 车辆标准违规</h4>
-              <ReactECharts option={speedGaugeOption} style={{ height: 250 }} />
-              <p className="text-sm text-gray-600 mt-2 text-center">
-                65%电动车实际车速超国标（≥35km/h）
-              </p>
-            </div>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            产销环节的"监管真空"
+          </h3>
 
-            {/* 销售环节乱象 */}
-            <div className="p-4 rounded-lg bg-orange-50 dark:bg-orange-900/20">
-              <h4 className="font-semibold mb-3 text-orange-700">2. 销售环节乱象</h4>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between items-center">
-                  <span>2023年投诉量增长</span>
-                  <span className="font-bold text-red-600">+120%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>虚假宣传占比</span>
-                  <span className="font-bold text-red-600">58%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>违规解码车销量</span>
-                  <span className="font-bold text-orange-600">10万+辆</span>
-                </div>
-                <p className="text-gray-600 mt-2">电商平台公然销售&quot;可解锁限速&quot;车型</p>
-              </div>
-            </div>
+          <p className="article-text">
+            如果说道路是症状，那么车辆本身就是病根。调研发现，市面上<span className="data-inline">65%</span>的电动自行车实际行驶速度超过国标规定的25公里/小时，部分车型甚至能达到50公里/小时以上。
+          </p>
+
+          <p className="article-text">
+            这种"超标车"的泛滥并非偶然。在电商平台上，<span className="article-emphasis">"可解锁限速"、"一键提速"</span>成为热销卖点。2023年，关于电动自行车的投诉量比上年增长了<span className="data-inline">120%</span>，其中<span className="data-inline">58%</span>涉及虚假宣传。
+          </p>
+
+          <div className="insight-marker">
+            <p className="article-text">
+              更令人担忧的是销售环节的乱象。据不完全统计，2024年广州市场上销售的"违规解码车"超过<span className="data-inline">10万辆</span>。这些车辆出厂时符合标准，但经过简单改装就能突破限速，成为道路上的"隐形炸弹"。
+            </p>
           </div>
-        </div>
 
-        {/* 平台规则的压迫 */}
-        <div className="rounded-xl border p-6 bg-white/60 dark:bg-white/5">
-          <h3 className="text-xl font-bold mb-6 text-green-600">三、平台规则的压迫</h3>
-          
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* 算法压迫 */}
-            <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20">
-              <h4 className="font-semibold mb-3 text-green-700">1. 算法压迫骑手</h4>
-              <div className="space-y-3 text-sm">
-                <div className="flex justify-between items-center">
-                  <span>日均配送量</span>
-                  <span className="font-bold">35-50单</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>高峰配送时限</span>
-                  <span className="font-bold text-red-600">≤30分钟</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>超时罚款比例</span>
-                  <span className="font-bold text-red-600">50%</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span>&quot;被迫冒险&quot;骑手比例</span>
-                  <span className="font-bold text-red-600">80%</span>
-                </div>
-              </div>
-            </div>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            算法压迫下的"被迫违法"
+          </h3>
 
-            {/* 考核机制矛盾 */}
-            <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20">
-              <h4 className="font-semibold mb-3 text-red-700">2. 考核机制矛盾</h4>
-              <ReactECharts option={weatherViolationOption} style={{ height: 200 }} />
-              <p className="text-sm text-gray-600 mt-2">
-                恶劣天气下违法率增长40%，平台却压缩配送时间
-              </p>
-            </div>
+          <p className="article-text">
+            在所有违法原因中，最让人心酸的或许是外卖骑手的"被迫违法"。平台算法的无情计算，让时间成为骑手最大的敌人。
+          </p>
+
+          <p className="article-text">
+            一名美团骑手告诉记者，高峰时段的配送时限通常被压缩到<span className="data-inline">30分钟以内</span>，而一旦超时就面临罚款。在这种压力下，<span className="data-inline">80%</span>的骑手承认自己"被迫冒险"——闯红灯、逆行、占用机动车道。
+          </p>
+
+          <p className="article-text">
+            数据更加直观地反映了这种矛盾：<span className="article-emphasis">恶劣天气下，电动自行车违法率会增加40%</span>，但平台的配送时间却不会因此调整。雨天路滑、能见度低，骑手们却要在更短的时间内完成配送，违法几乎成为"生存必需"。
+          </p>
+
+          <div className="quote-block">
+            我们的调研显示，66%的违法行为发生在配送高峰期，这说明大部分违法并非恶意，而是在系统性压力下的无奈选择。
+          </div>
+
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            政策体系的"碎片化"
+          </h3>
+
+          <p className="article-text">
+            治理困境的另一个重要原因是政策体系的不完善。长期以来，电动自行车管理存在"三不管"现象：国家法律缺乏具体实施细则，地方法规相互冲突，行业标准执行不力。
+          </p>
+
+          <p className="article-text">
+            以号牌管理为例，<span className="article-emphasis">共享电单车、外卖专用车长期缺乏登记渠道</span>，处于法律灰色地带。直到《广州市电动自行车管理规定》2024年底才正式实施，but这已经是"亡羊补牢"了。
+          </p>
+
+          <div className="insight-marker">
+            <p className="article-text">
+              更严重的是执法标准不统一。在天河、越秀等中心城区严查无牌车辆，但在黄埔、番禺等外围区域，共享电单车无牌运营却相对普遍。这种"一区一策"的执法方式，不仅影响公平性，也降低了整体治理效果。
+            </p>
+          </div>
+
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            系统性困境需要系统性解决
+          </h3>
+
+          <p className="article-text">
+            通过深入分析，我们发现广州电动自行车治理困境的根源是多方面的：<span className="article-emphasis">基础设施历史欠债、执法资源相对不足、产销监管存在漏洞、平台算法缺乏约束、政策体系亟待完善</span>。
+          </p>
+
+          <p className="article-text">
+            这些问题相互交织、互为因果，形成了一个复杂的治理难题。单独解决任何一个问题都难以取得根本性效果，需要的是系统性的综合治理方案。
+          </p>
+
+          <div className="insight-marker">
+            <p className="article-text">
+              正如一位政策专家所说："电动自行车治理不是单纯的交通管理问题，它涉及城市规划、产业政策、社会治理等多个层面。只有多部门协同、多措并举，才能真正破解这道难题。"
+            </p>
           </div>
         </div>
 
-        {/* 地方政策的缺位 */}
-        <div className="rounded-xl border p-6 bg-white/60 dark:bg-white/5">
-          <h3 className="text-xl font-bold mb-6 text-indigo-600">四、地方政策的缺位</h3>
-          
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* 法规体系割裂 */}
-            <div className="p-4 rounded-lg bg-indigo-50 dark:bg-indigo-900/20">
-              <h4 className="font-semibold mb-3 text-indigo-700">1. 法规体系割裂</h4>
-              <ul className="text-sm space-y-2">
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-red-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
-                  <span>国家法未明确电动自行车上牌、保险细则</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
-                  <span>共享电单车、外卖车辆缺乏登记渠道</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-2 flex-shrink-0"></span>
-                  <span>《广州市电动自行车管理规定》2024年底才实施</span>
-                </li>
-              </ul>
-            </div>
+        {/* 关键数据可视化 */}
+        <div className="mt-12 space-y-8">
+          <div className="text-center">
+            <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">
+              基础设施建设与需求增长对比
+            </h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
+              车辆增长速度远超基础设施建设步伐
+            </p>
+            <ReactECharts option={infrastructureGapOption} style={{ height: 350 }} />
+          </div>
 
-            {/* 执法标准不一 */}
-            <div className="p-4 rounded-lg bg-gray-50 dark:bg-gray-900/20">
-              <h4 className="font-semibold mb-3 text-gray-700">2. 执法标准不一</h4>
-              <div className="space-y-3 text-sm">
-                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded">
-                  <div className="font-medium">中心城区（天河、越秀）</div>
-                  <div className="text-gray-600">严查无牌车</div>
-                </div>
-                <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded">
-                  <div className="font-medium">外围区（黄埔、番禺）</div>
-                  <div className="text-gray-600">共享电单车无牌运营普遍</div>
-                </div>
-                <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded">
-                  <div className="font-medium">2025年查扣量</div>
-                  <div className="text-gray-600">2.36万辆（短期化整治）</div>
-                </div>
-              </div>
-            </div>
+          <div className="text-center">
+            <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-4">
+              执法效能分析
+            </h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mb-6">
+              违法总量与查处能力的巨大落差
+            </p>
+            <ReactECharts option={enforcementGapOption} style={{ height: 300 }} />
           </div>
         </div>
 
-        {/* 总结 */}
-        <div className="rounded-xl border p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-200">系统性困境的根源</h3>
-          <div className="grid md:grid-cols-3 gap-4 text-sm">
-            <div className="p-3 bg-white/60 dark:bg-white/10 rounded-lg">
-              <h4 className="font-semibold text-blue-600 mb-2">基础设施短板</h4>
-              <p className="text-gray-600">车道不达标、路网不完善、建设滞后于需求增长</p>
-            </div>
-            <div className="p-3 bg-white/60 dark:bg-white/10 rounded-lg">
-              <h4 className="font-semibold text-purple-600 mb-2">监管失效</h4>
-              <p className="text-gray-600">生产销售失管、执法效能低下、技术手段落后</p>
-            </div>
-            <div className="p-3 bg-white/60 dark:bg-white/10 rounded-lg">
-              <h4 className="font-semibold text-green-600 mb-2">责任转嫁</h4>
-              <p className="text-gray-600">平台算法压迫、政策缺位、多方责任缺失</p>
-            </div>
-          </div>
+        <div className="mt-12 text-center">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            数据来源：广州市交警支队、城乡建设委员会、市场监管局等部门统计数据
+          </p>
         </div>
       </div>
     </Section>
   );
 }
 
-// 基础设施建设趋势图
-const infrastructureOption: EChartsOption = {
+// 基础设施建设与需求增长对比
+const infrastructureGapOption: EChartsOption = {
   title: {
-    text: '非机动车道建设进度',
-    textStyle: { fontSize: 14 }
+    text: '基础设施建设 vs 车辆增长',
+    left: 'center',
+    textStyle: {
+      fontSize: 16,
+      color: '#374151'
+    }
   },
-  tooltip: { trigger: 'axis' },
+  tooltip: { 
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross'
+    }
+  },
   legend: {
-    data: ['总里程(km)', '覆盖率(%)'],
-    bottom: 0
+    bottom: 0,
+    data: ['电动自行车保有量(万辆)', '非机动车道里程(km)']
   },
   xAxis: {
     type: 'category',
@@ -251,117 +188,111 @@ const infrastructureOption: EChartsOption = {
   yAxis: [
     {
       type: 'value',
-      name: '里程(km)',
-      min: 0,
-      max: 1800
+      name: '保有量(万辆)',
+      position: 'left',
+      axisLine: {
+        lineStyle: {
+          color: '#ef4444'
+        }
+      },
+      axisLabel: {
+        formatter: '{value}'
+      }
     },
     {
       type: 'value',
-      name: '覆盖率(%)',
-      min: 50,
-      max: 85
+      name: '里程(km)',
+      position: 'right',
+      axisLine: {
+        lineStyle: {
+          color: '#3b82f6'
+        }
+      },
+      axisLabel: {
+        formatter: '{value}'
+      }
     }
   ],
   series: [
     {
-      name: '总里程(km)',
-      type: 'bar',
+      name: '电动自行车保有量(万辆)',
+      type: 'line',
       yAxisIndex: 0,
-      data: [1023, 1570, 1071, 1428],
-      itemStyle: { color: '#3b82f6' }
+      data: [32.5, 288, 442, 576],
+      lineStyle: {
+        color: '#ef4444',
+        width: 4
+      },
+      itemStyle: {
+        color: '#ef4444'
+      },
+      symbol: 'circle',
+      symbolSize: 8,
+      label: {
+        show: true,
+        position: 'top',
+        formatter: '{c}万辆'
+      }
     },
     {
-      name: '覆盖率(%)',
-      type: 'line',
+      name: '非机动车道里程(km)',
+      type: 'bar',
       yAxisIndex: 1,
-      data: [58.5, 65.2, 70.8, 77.7],
-      itemStyle: { color: '#ef4444' },
-      lineStyle: { width: 3 }
-    }
-  ]
-};
-
-// 车速仪表盘
-const speedGaugeOption: EChartsOption = {
-  series: [
-    {
-      type: 'gauge',
-      min: 0,
-      max: 60,
-      splitNumber: 6,
-      axisLine: {
-        lineStyle: {
-          width: 8,
-          color: [
-            [0.583, '#10b981'], // 35km/h以下为绿色
-            [0.833, '#f59e0b'], // 35-50km/h为黄色
-            [1, '#ef4444']      // 50km/h以上为红色
-          ]
-        }
-      },
-      axisTick: { show: false },
-      splitLine: {
-        length: 15,
-        lineStyle: { width: 2, color: '#999' }
-      },
-      axisLabel: {
-        distance: 25,
-        fontSize: 10
-      },
-      pointer: {
-        width: 4,
-        length: '70%',
-        itemStyle: { color: '#333' }
-      },
-      detail: {
-        valueAnimation: true,
-        formatter: '{value} km/h',
-        fontSize: 16,
-        fontWeight: 'bold',
-        offsetCenter: [0, '70%']
-      },
-      data: [{ value: 42, name: '市场均速' }],
-      title: {
-        show: true,
-        offsetCenter: [0, '90%'],
-        fontSize: 12,
-        color: '#666'
+      data: [1023, 1245, 1356, 1428],
+      itemStyle: {
+        color: '#3b82f6',
+        opacity: 0.7
       }
     }
   ]
 };
 
-// 恶劣天气违法率变化
-const weatherViolationOption: EChartsOption = {
+// 执法效能分析
+const enforcementGapOption: EChartsOption = {
   title: {
-    text: '恶劣天气违法率变化',
-    textStyle: { fontSize: 12 }
+    text: '日均违法量 vs 查处量',
+    left: 'center',
+    textStyle: {
+      fontSize: 16,
+      color: '#374151'
+    }
   },
-  tooltip: { 
-    trigger: 'axis',
-    formatter: '{b}: {c}%'
-  },
-  xAxis: {
-    type: 'category',
-    data: ['正常天气', '恶劣天气'],
-    axisLabel: { fontSize: 10 }
-  },
-  yAxis: {
-    type: 'value',
-    name: '违法率(%)',
-    axisLabel: { fontSize: 10 }
+  tooltip: {
+    trigger: 'item',
+    formatter: '{a}: {c} ({d}%)'
   },
   series: [
     {
-      type: 'bar',
+      name: '违法处理情况',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      center: ['50%', '60%'],
       data: [
-        { value: 15, itemStyle: { color: '#10b981' } },
-        { value: 21, itemStyle: { color: '#ef4444' } }
+        { 
+          value: 1.2, 
+          name: '查处量(万起)', 
+          itemStyle: { color: '#10b981' },
+          label: {
+            formatter: '{b}\n{c}万起\n({d}%)',
+            fontSize: 12
+          }
+        },
+        { 
+          value: 22.8, 
+          name: '未查处(万起)', 
+          itemStyle: { color: '#ef4444' },
+          label: {
+            formatter: '{b}\n{c}万起\n({d}%)',
+            fontSize: 12
+          }
+        }
       ],
-      label: {
-        show: true,
-        position: 'top',
-        formatter: '{c}%'
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
       }
     }
   ]

@@ -71,21 +71,63 @@ html, body {
   scroll-snap-type: y mandatory;
 }
 
-/* Enhanced card styles */
-.glass-card {
-  background: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+/* Text-first design - no card styles */
+.content-block {
+  margin: 2rem 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .glass-card {
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  }
+/* Article-style typography */
+.article-text {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--color-foreground);
+  margin-bottom: 1.5rem;
+}
+
+.article-lead {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: var(--color-foreground);
+  font-weight: 400;
+  margin-bottom: 2rem;
+}
+
+.article-emphasis {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.data-inline {
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+/* Subtle visual hierarchy without boxes */
+.insight-marker {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+}
+
+.quote-block {
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-muted-foreground);
+  margin: 2rem 0;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.quote-block::before {
+  content: '"';
+  font-size: 3rem;
+  color: var(--color-primary);
+  position: absolute;
+  left: -0.5rem;
+  top: -0.5rem;
+  opacity: 0.3;
 }
 
 /* Smooth transitions */

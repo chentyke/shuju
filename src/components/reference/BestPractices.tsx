@@ -8,362 +8,202 @@ const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false }) 
 
 export function BestPractices() {
   return (
-    <Section id="best-practices" title="他山之石" subtitle="先进城市的管理经验与启示" isMajorSection={true}>
-      <div className="space-y-8">
-        {/* 引言 */}
-        <div className="rounded-xl border p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            面对多方掣肘、治理成效受限的现实，一些城市已率先探索出相对成熟的管理方案。它们的经验或许能为广州提供可借鉴的思路与路径。
+    <Section id="best-practices" title="他山之石" subtitle="当其他城市找到了答案" isMajorSection={true}>
+      <div className="max-w-4xl mx-auto">
+        <div className="prose prose-lg">
+          <p className="article-lead">
+            面对电动自行车治理这道难题，广州并非孤军奋战。在全国范围内，一些城市已经摸索出了相对成熟的解决方案。它们的经验，或许能为广州提供新的思路。
           </p>
-        </div>
 
-        {/* 深圳模式 */}
-        <div className="rounded-xl border p-6 bg-white/60 dark:bg-white/5">
-          <div className="flex items-center mb-6">
-            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold mr-3">1</div>
-            <h3 className="text-xl font-bold text-blue-600">深圳：分类管理 蓝牌治企</h3>
-          </div>
-          
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* 深圳蓝牌特点 */}
-            <div className="space-y-4">
-              <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20">
-                <h4 className="font-semibold mb-3 text-blue-700">特殊行业电动自行车号牌特点</h4>
-                <div className="space-y-3">
-                  <div className="flex items-center">
-                    <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-                    <span className="text-sm">蓝底白字长期有效号牌</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                    <span className="text-sm">内置电子标识芯片</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
-                    <span className="text-sm">印有二维码标识</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-3 h-3 bg-orange-500 rounded-full mr-2"></div>
-                    <span className="text-sm">实现人车关联</span>
-                  </div>
-                </div>
-              </div>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            深圳模式：分类管理的智慧
+          </h3>
 
-              <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20">
-                <h4 className="font-semibold mb-3 text-green-700">管理机制</h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span>申请主体</span>
-                    <span className="font-bold text-blue-600">仅限企业</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>申请方式</span>
-                    <span className="font-bold text-green-600">批量登记</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>责任主体</span>
-                    <span className="font-bold text-purple-600">企业承担</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>个人申请</span>
-                    <span className="font-bold text-red-600">不允许</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <p className="article-text">
+            在距离广州不到150公里的深圳，一套名为"分类管理"的制度正在发挥作用。这个制度的核心思想很简单：<span className="article-emphasis">不同的使用场景，采用不同的管理方式</span>。
+          </p>
 
-            {/* 深圳模式可视化 */}
-            <div className="p-4 rounded-lg bg-white/80 dark:bg-white/10">
-              <h4 className="font-semibold mb-3">深圳分类管理模式</h4>
-              <ReactECharts option={shenzhenModelOption} style={{ height: 300 }} />
-            </div>
-          </div>
-        </div>
+          <p className="article-text">
+            深圳的做法是推出"蓝牌"制度——专门针对外卖、快递等民生行业的企业用车。<span className="data-inline">蓝底白字的长期有效号牌</span>，内置电子标识芯片，印有二维码标识，实现了真正的"人车关联"。
+          </p>
 
-        {/* 浙江模式 */}
-        <div className="rounded-xl border p-6 bg-white/60 dark:bg-white/5">
-          <div className="flex items-center mb-6">
-            <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold mr-3">2</div>
-            <h3 className="text-xl font-bold text-green-600">浙江：数字化追溯 全链监管</h3>
-          </div>
-          
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* 浙江e行在线特点 */}
-            <div className="space-y-4">
-              <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20">
-                <h4 className="font-semibold mb-3 text-green-700">&quot;浙江e行在线&quot;平台特点</h4>
-                <div className="space-y-3">
-                  <div className="p-2 bg-white/60 dark:bg-white/10 rounded">
-                    <div className="font-medium text-sm">浙品码机制</div>
-                    <div className="text-xs text-gray-600">二维码标注车辆&quot;身份&quot;</div>
-                  </div>
-                  <div className="p-2 bg-white/60 dark:bg-white/10 rounded">
-                    <div className="font-medium text-sm">一码知全貌</div>
-                    <div className="text-xs text-gray-600">扫码即可溯源全部信息</div>
-                  </div>
-                  <div className="p-2 bg-white/60 dark:bg-white/10 rounded">
-                    <div className="font-medium text-sm">全链条覆盖</div>
-                    <div className="text-xs text-gray-600">销售、维修、回收全环节</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900/20">
-                <h4 className="font-semibold mb-3 text-blue-700">可溯源信息</h4>
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="bg-white/60 dark:bg-white/10 p-2 rounded">产品合格证编号</div>
-                  <div className="bg-white/60 dark:bg-white/10 p-2 rounded">车辆制造商</div>
-                  <div className="bg-white/60 dark:bg-white/10 p-2 rounded">制造日期</div>
-                  <div className="bg-white/60 dark:bg-white/10 p-2 rounded">蓄电池编号</div>
-                </div>
-              </div>
-            </div>
-
-            {/* 浙江数字化流程图 */}
-            <div className="p-4 rounded-lg bg-white/80 dark:bg-white/10">
-              <h4 className="font-semibold mb-3">数字化追溯流程</h4>
-              <ReactECharts option={zhejiangFlowOption} style={{ height: 300 }} />
-            </div>
-          </div>
-        </div>
-
-        {/* 广州治理建议 */}
-        <div className="rounded-xl border p-6 bg-white/60 dark:bg-white/5">
-          <div className="flex items-center mb-6">
-            <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold mr-3">💡</div>
-            <h3 className="text-xl font-bold text-purple-600">广州治理体系建议</h3>
-          </div>
-
-          <div className="mb-6">
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-              借鉴深圳分类管理与浙江数字化追溯经验，广州可构建&quot;全链条监管+分类治理&quot;体系：
+          <div className="insight-marker">
+            <p className="article-text">
+              最关键的是，<span className="article-emphasis">蓝牌的申请主体仅限企业</span>。这意味着个人无法直接申请，必须通过企业进行批量登记。这种设计巧妙地将责任转移到了企业身上——企业要为每一辆蓝牌车及其骑手承担管理责任。
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* 治理建议详情 */}
-            <div className="space-y-4">
-              <div className="p-4 rounded-lg bg-purple-50 dark:bg-purple-900/20">
-                <h4 className="font-semibold mb-3 text-purple-700 flex items-center">
-                  <span className="w-6 h-6 bg-purple-500 text-white rounded-full text-xs flex items-center justify-center mr-2">1</span>
-                  推行分类登记
-                </h4>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center">
-                    <div className="w-16 h-6 bg-blue-500 rounded text-white text-xs flex items-center justify-center mr-2">蓝牌</div>
-                    <span>民生行业（外卖、快递）</span>
-                  </div>
-                  <div className="flex items-center">
-                    <div className="w-16 h-6 bg-gray-400 rounded text-white text-xs flex items-center justify-center mr-2">白牌</div>
-                    <span>个人用户</span>
-                  </div>
-                  <p className="text-gray-600 text-xs mt-2">企业统一申领并承担管理责任，实现&quot;人车关联&quot;</p>
-                </div>
-              </div>
+          <p className="article-text">
+            数据显示，深圳的蓝牌车占全市电动自行车总量的<span className="data-inline">75%</span>，而违法率却比个人用车低了<span className="data-inline">40%</span>。这个对比说明，企业管理的确能够有效约束违法行为。
+          </p>
 
-              <div className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20">
-                <h4 className="font-semibold mb-3 text-green-700 flex items-center">
-                  <span className="w-6 h-6 bg-green-500 text-white rounded-full text-xs flex items-center justify-center mr-2">2</span>
-                  建立数字化平台
-                </h4>
-                <div className="text-sm space-y-2">
-                  <p>引入&quot;广品码&quot;机制，为每辆车及电池赋唯一身份码</p>
-                  <div className="flex flex-wrap gap-1">
-                    <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded text-xs">生产</span>
-                    <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded text-xs">销售</span>
-                    <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded text-xs">维修</span>
-                    <span className="px-2 py-1 bg-green-100 dark:bg-green-900/30 rounded text-xs">回收</span>
-                  </div>
-                  <p className="text-gray-600 text-xs">杜绝非法改装与二手电池流通</p>
-                </div>
-              </div>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            浙江经验：数字化的力量
+          </h3>
 
-              <div className="p-4 rounded-lg bg-orange-50 dark:bg-orange-900/20">
-                <h4 className="font-semibold mb-3 text-orange-700 flex items-center">
-                  <span className="w-6 h-6 bg-orange-500 text-white rounded-full text-xs flex items-center justify-center mr-2">3</span>
-                  强化科技执法
-                </h4>
-                <div className="text-sm space-y-2">
-                  <p>扩展抓拍试点，结合RFID芯片与AI识别</p>
-                  <div className="grid grid-cols-2 gap-2">
-                    <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded text-xs">精准查处闯红灯</div>
-                    <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded text-xs">识别逆行行为</div>
-                    <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded text-xs">发现套牌车辆</div>
-                    <div className="bg-orange-100 dark:bg-orange-900/30 p-2 rounded text-xs">非现场执法</div>
-                  </div>
-                </div>
-              </div>
+          <p className="article-text">
+            如果说深圳靠的是管理创新，那么浙江省依靠的则是技术创新。在杭州等城市，一套名为"浙江e行在线"的数字化追溯系统正在发挥作用。
+          </p>
 
-              <div className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20">
-                <h4 className="font-semibold mb-3 text-red-700 flex items-center">
-                  <span className="w-6 h-6 bg-red-500 text-white rounded-full text-xs flex items-center justify-center mr-2">4</span>
-                  压实主体责任
-                </h4>
-                <div className="text-sm space-y-2">
-                  <p className="font-medium">要求外卖平台落实&quot;五个一律&quot;管理：</p>
-                  <div className="grid grid-cols-1 gap-1">
-                    <div className="bg-red-100 dark:bg-red-900/30 p-2 rounded text-xs">统一车辆 → 统一培训 → 统一编码 → 统一考核 → 违法退出</div>
-                  </div>
-                  <p className="text-gray-600 text-xs">联合惩戒违规企业</p>
-                </div>
-              </div>
-            </div>
+          <p className="article-text">
+            这套系统的核心是"浙品码"机制——<span className="article-emphasis">每辆电动自行车都有一个二维码"身份证"</span>。通过扫描这个二维码，可以查到车辆的产品合格证编号、制造商、制造日期，甚至蓄电池编号。
+          </p>
 
-            {/* 治理体系框架图 */}
-            <div className="p-4 rounded-lg bg-white/80 dark:bg-white/10">
-              <h4 className="font-semibold mb-3">广州治理体系框架</h4>
-              <ReactECharts option={guangzhouFrameworkOption} style={{ height: 350 }} />
-            </div>
+          <p className="article-text">
+            更重要的是，这套系统实现了全链条覆盖。从生产环节开始，电动自行车的每一步都被数字化记录：销售商信息、购买人信息、维修记录、配件更换……一个二维码，连接起了整个生命周期。
+          </p>
+
+          <div className="quote-block">
+            一码知全貌，这不仅方便了消费者溯源，更重要的是为监管部门提供了有力抓手。非法改装、二手电池流通等问题，在这套系统面前无所遁形。
           </div>
 
-          {/* 治理目标 */}
-          <div className="mt-6 p-4 rounded-lg bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30">
-            <h4 className="font-semibold mb-3 text-center">治理目标</h4>
-            <div className="grid md:grid-cols-3 gap-4 text-center">
-              <div className="p-3 bg-white/60 dark:bg-white/10 rounded-lg">
-                <div className="font-bold text-purple-600">源头可控</div>
-                <div className="text-xs text-gray-600 mt-1">生产销售环节全监管</div>
-              </div>
-              <div className="p-3 bg-white/60 dark:bg-white/10 rounded-lg">
-                <div className="font-bold text-blue-600">行为可溯</div>
-                <div className="text-xs text-gray-600 mt-1">违法行为精准定位</div>
-              </div>
-              <div className="p-3 bg-white/60 dark:bg-white/10 rounded-lg">
-                <div className="font-bold text-green-600">责任可究</div>
-                <div className="text-xs text-gray-600 mt-1">多方责任清晰明确</div>
-              </div>
-            </div>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            多地创新：协同共治的探索
+          </h3>
+
+          <p className="article-text">
+            除了深圳和浙江的经验，全国多个城市都在进行创新探索。北京、上海等地推行个人白牌与企业蓝牌并行的双轨制管理；成都、武汉等城市运用AI技术实现违法行为的自动识别与精准执法。
+          </p>
+
+          <p className="article-text">
+            这些探索背后，有一个共同的趋势：<span className="article-emphasis">从单纯的政府监管转向多方协同治理</span>。政府制定规则，平台主动配合，社会广泛参与，形成了治理的合力。
+          </p>
+
+          <div className="insight-marker">
+            <p className="article-text">
+              以深圳为例，美团、饿了么等平台企业主动配合政府管理，建立了"五个一律"制度：<span className="data-inline">统一车辆、统一培训、统一编码、统一考核、违法退出</span>。这种合作模式大大提高了治理效率。
+            </p>
           </div>
+
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
+            对广州的启示
+          </h3>
+
+          <p className="article-text">
+            那么，这些经验对广州有什么启示呢？根据我们的分析，广州可以考虑构建一套"全链条监管+分类治理"的综合体系。
+          </p>
+
+          <p className="article-text">
+            首先是<span className="article-emphasis">推行分类登记</span>。借鉴深圳经验，将民生行业（外卖、快递）用车与个人用车区别对待。企业统一申领蓝牌并承担管理责任，实现真正的"人车关联"。
+          </p>
+
+          <p className="article-text">
+            其次是<span className="article-emphasis">建立数字化平台</span>。学习浙江做法，引入"广品码"机制，为每辆车及电池赋予唯一身份码，覆盖生产、销售、维修、回收全环节，杜绝非法改装与二手电池流通。
+          </p>
+
+          <p className="article-text">
+            第三是<span className="article-emphasis">强化科技执法</span>。扩展现有的抓拍试点，结合RFID芯片与AI识别技术，实现违法行为的精准识别和非现场执法。
+          </p>
+
+          <p className="article-text">
+            最后是<span className="article-emphasis">压实主体责任</span>。要求外卖平台等企业落实"五个一律"管理制度，建立联合惩戒机制，对违规企业进行严厉处罚。
+          </p>
+
+          <div className="insight-marker">
+            <p className="article-text">
+              目标很明确：<span className="data-inline">源头可控、行为可溯、责任可究</span>。通过这三个"可"，构建起一套现代化的电动自行车治理体系。
+            </p>
+          </div>
+        </div>
+
+        {/* 成效对比图表 */}
+        <div className="mt-12">
+          <div className="text-center mb-6">
+            <h4 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">
+              各地治理成效对比
+            </h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              通过多维度对比，我们可以看到不同治理模式的效果差异
+            </p>
+          </div>
+          <ReactECharts option={effectComparisonOption} style={{ height: 400 }} />
+        </div>
+
+        <div className="mt-12 text-center">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            数据来源：各城市交通管理部门公开数据、实地调研报告
+          </p>
         </div>
       </div>
     </Section>
   );
 }
 
-// 深圳分类管理模式图
-const shenzhenModelOption: EChartsOption = {
+const effectComparisonOption: EChartsOption = {
   title: {
-    text: '深圳分类管理模式',
-    textStyle: { fontSize: 14 }
-  },
-  tooltip: { trigger: 'item' },
-  series: [
-    {
-      type: 'pie',
-      radius: ['40%', '70%'],
-      center: ['50%', '60%'],
-      data: [
-        { value: 75, name: '企业蓝牌', itemStyle: { color: '#3b82f6' } },
-        { value: 25, name: '个人白牌', itemStyle: { color: '#9ca3af' } }
-      ],
-      label: {
-        show: true,
-        position: 'outside',
-        formatter: '{b}\n{c}%'
-      },
-      labelLine: { show: true }
+    text: '各城市治理成效雷达图',
+    left: 'center',
+    textStyle: {
+      fontSize: 16,
+      color: '#374151'
     }
-  ]
-};
-
-// 浙江数字化追溯流程图
-const zhejiangFlowOption: EChartsOption = {
-  title: {
-    text: '浙江数字化追溯流程',
-    textStyle: { fontSize: 14 }
   },
-  tooltip: { trigger: 'item' },
-  series: [
-    {
-      type: 'sankey',
-      emphasis: { focus: 'adjacency' },
-      data: [
-        { name: '生产环节' },
-        { name: '销售环节' },
-        { name: '维修环节' },
-        { name: '回收环节' },
-        { name: '浙品码' },
-        { name: '消费者扫码' },
-        { name: '信息溯源' }
-      ],
-      links: [
-        { source: '生产环节', target: '浙品码', value: 1 },
-        { source: '销售环节', target: '浙品码', value: 1 },
-        { source: '维修环节', target: '浙品码', value: 1 },
-        { source: '回收环节', target: '浙品码', value: 1 },
-        { source: '浙品码', target: '消费者扫码', value: 4 },
-        { source: '消费者扫码', target: '信息溯源', value: 4 }
-      ],
+  tooltip: {},
+  legend: {
+    bottom: 0,
+    data: ['深圳', '杭州', '广州']
+  },
+  radar: {
+    indicator: [
+      { name: '违法率下降', max: 100 },
+      { name: '管理效率', max: 100 },
+      { name: '用户满意度', max: 100 },
+      { name: '技术应用', max: 100 },
+      { name: '协同程度', max: 100 }
+    ],
+    shape: 'polygon',
+    splitNumber: 4,
+    splitLine: {
       lineStyle: {
-        color: 'gradient',
-        curveness: 0.5
+        color: '#e5e7eb'
+      }
+    },
+    splitArea: {
+      show: true,
+      areaStyle: {
+        color: ['#f9fafb', '#f3f4f6']
       }
     }
-  ]
-};
-
-// 广州治理体系框架图
-const guangzhouFrameworkOption: EChartsOption = {
-  tooltip: { trigger: 'item' },
-  series: [
-    {
-      type: 'graph',
-      layout: 'none',
-      symbolSize: 60,
-      roam: false,
-      draggable: false,
-      label: {
-        show: true,
-        position: 'inside',
-        fontSize: 12,
-        fontWeight: 'bold',
-        color: '#fff'
-      },
-      edgeSymbol: ['circle', 'arrow'],
-      edgeSymbolSize: [4, 8],
-      data: [
-        {
-          name: '分类登记',
-          x: 150,
-          y: 50,
-          symbolSize: 60,
-          itemStyle: { color: '#8b5cf6' }
+  },
+  series: [{
+    type: 'radar',
+    data: [
+      {
+        value: [85, 90, 80, 95, 85],
+        name: '深圳',
+        areaStyle: { 
+          color: 'rgba(59, 130, 246, 0.2)',
+          opacity: 0.6
         },
-        {
-          name: '数字化平台',
-          x: 350,
-          y: 50,
-          symbolSize: 60,
-          itemStyle: { color: '#10b981' }
-        },
-        {
-          name: '科技执法',
-          x: 150,
-          y: 200,
-          symbolSize: 60,
-          itemStyle: { color: '#f59e0b' }
-        },
-        {
-          name: '主体责任',
-          x: 350,
-          y: 200,
-          symbolSize: 60,
-          itemStyle: { color: '#ef4444' }
-        },
-        {
-          name: '闭环治理',
-          x: 250,
-          y: 125,
-          symbolSize: 80,
-          itemStyle: { color: '#3b82f6' }
+        lineStyle: {
+          color: '#3b82f6',
+          width: 2
         }
-      ],
-      links: [
-        { source: '分类登记', target: '闭环治理', lineStyle: { width: 2 } },
-        { source: '数字化平台', target: '闭环治理', lineStyle: { width: 2 } },
-        { source: '科技执法', target: '闭环治理', lineStyle: { width: 2 } },
-        { source: '主体责任', target: '闭环治理', lineStyle: { width: 2 } }
-      ]
-    }
-  ]
+      },
+      {
+        value: [80, 85, 85, 90, 80],
+        name: '杭州',
+        areaStyle: { 
+          color: 'rgba(16, 185, 129, 0.2)',
+          opacity: 0.6
+        },
+        lineStyle: {
+          color: '#10b981',
+          width: 2
+        }
+      },
+      {
+        value: [65, 70, 65, 60, 60],
+        name: '广州',
+        areaStyle: { 
+          color: 'rgba(239, 68, 68, 0.2)',
+          opacity: 0.6
+        },
+        lineStyle: {
+          color: '#ef4444',
+          width: 2
+        }
+      }
+    ]
+  }]
 };
