@@ -42,7 +42,7 @@ export const violationTypeData = [
 export const riderBasicData = {
   totalActiveRiders: 12, // 万人
   totalEBikeUsers: 45, // 万人（估算）
-  riderPercentage: 26.7, // 骑手占电动自行车用户比例
+  riderPercentage: 5, // 骑手占电动自行车用户比例
   dailyOrdersNormal: 35, // 平均每天订单数
   dailyOrdersPeak: 50, // 高峰时段订单数
   speedLimit: 15, // km/h

@@ -12,11 +12,20 @@ export function ViolationTrends() {
     <Section 
       id="violation-trends" 
       title="隐患在途" 
-      subtitle="违法数量持续高位 增长势头明显"
-      description="过去四年，广州电动自行车交通违法查处量始终维持在高位，并呈现总体上升趋势。"
       className="bg-gradient-to-b from-red-50/50 to-orange-50/50 dark:from-red-900/20 dark:to-orange-900/20"
       isMajorSection={true}
     >
+      {/* 标签和描述 */}
+      <div className="max-w-4xl mx-auto mb-12 text-center">
+        <div className="inline-flex items-center px-6 py-3 rounded-full text-base font-semibold bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 border border-red-200 dark:border-red-800 mb-6">
+          <span className="w-3 h-3 bg-red-500 rounded-full mr-3 animate-pulse" />
+          违法数量持续高位 增长势头明显
+        </div>
+        <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+          过去四年，广州电动自行车交通违法查处量始终维持在高位，并呈现总体上升趋势。
+        </p>
+      </div>
+      
       <div className="grid gap-8">
         {/* 主图表 */}
         <div className="glass-card p-8">

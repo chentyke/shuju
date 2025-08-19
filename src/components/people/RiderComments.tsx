@@ -36,9 +36,7 @@ export function RiderComments() {
           实时社交媒体评论流
         </div>
         
-        <h2 className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-slate-300 dark:to-white bg-clip-text text-transparent mb-8">
-          现实声音：骑手生存状态调查
-        </h2>
+
         
         <p className="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-6xl mx-auto mb-4">
           为了更直观地呈现骑手群体的生存状态，我们爬取了社交媒体上与&ldquo;外卖骑手&rdquo;&ldquo;送餐压力&rdquo;等话题相关的评论。
@@ -74,17 +72,7 @@ export function RiderComments() {
             这一系列现象既揭示了骑手群体的生存困境，也折射出现行管理政策与行业实际需求之间的深层矛盾。
           </p>
           
-          <div className="flex items-center justify-center space-x-4 text-sm text-slate-500 dark:text-slate-400">
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"></div>
-              <span>数据来源：光明网</span>
-            </div>
-            <div className="w-1 h-1 bg-slate-400 rounded-full"></div>
-            <div className="flex items-center space-x-2">
-              <div className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-teal-400 rounded-full"></div>
-              <span>人民政协网</span>
-            </div>
-          </div>
+
         </div>
       </div>
     </section>

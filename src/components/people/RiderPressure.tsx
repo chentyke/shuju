@@ -4,6 +4,17 @@ import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { Section } from "@/components/common/Section";
 import { riderViolationRatioData, violationTypeData, riderBasicData, incomeAndPenaltyData, socialMediaComments, emotionColors } from "@/data/riderViolations";
+import { RiderScale } from "@/components/charts/RiderScale";
+import { DeliveryTimeComparison } from "@/components/charts/DeliveryTimeComparison";
+import { IncomeComparison } from "@/components/charts/IncomeComparison";
+import { ViolationBehavior } from "@/components/charts/ViolationBehavior";
+import { 
+  riderScaleData, 
+  deliveryTimeData, 
+  incomeComparisonData, 
+  penaltyData, 
+  violationBehaviorData 
+} from "@/data/deliveryPressure";
 import type { EChartsOption } from "echarts";
 
 const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false }) as unknown as (props: { option: EChartsOption; style?: React.CSSProperties }) => import("react").ReactElement | null;
@@ -12,243 +23,263 @@ export function RiderPressure() {
   return (
     <Section 
       id="rider-pressure" 
-      title="逐单争速" 
-      subtitle="外卖骑手：低占有率 高违法率的高风险群体"
-      description="在这些违法与事故数据背后，有一个群体的身影格外突出——外卖与快递骑手。他们虽然只占电动自行车总量的一小部分，却在交通违法和事故统计中长期高居前列。这一现象背后，又隐藏着怎样的行业压力与生存困境？"
-      className="bg-gradient-to-b from-amber-50/50 to-red-50/50 dark:from-amber-900/20 dark:to-red-900/20"
-      isMajorSection={true}
-    >
-      <div className="grid gap-8">
-        {/* 核心统计数据 */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="glass-card p-6 text-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border-l-4 border-blue-500">
-            <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-3">
-              {riderBasicData.totalActiveRiders}万
-            </div>
-            <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-              活跃骑手
-            </div>
-            <div className="text-xs text-slate-500 dark:text-slate-400">
-              每日实际接单人数
-            </div>
-          </div>
+      title="逐单争速"
+      description={
+        <>
+          在这些违法与事故数据背后，有一个群体的身影格外突出——<span className="font-semibold text-amber-600">外卖与快递骑手</span>。他们虽然只占电动自行车总量的一小部分，却在交通违法和事故统计中长期高居前列。
           
-          <div className="glass-card p-6 text-center bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 border-l-4 border-amber-500">
-            <div className="text-4xl font-bold text-amber-600 dark:text-amber-400 mb-3">
-              {riderBasicData.riderPercentage}%
+          {/* 核心统计数据 */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
+            <div className="glass-card p-6 text-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border-l-4 border-blue-500">
+              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-3">
+                {riderBasicData.totalActiveRiders}万
+              </div>
+              <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                活跃骑手
+              </div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">
+                每日实际接单人数
+              </div>
             </div>
-            <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-              用户占比
+            
+            <div className="glass-card p-6 text-center bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 border-l-4 border-amber-500">
+              <div className="text-4xl font-bold text-amber-600 dark:text-amber-400 mb-3">
+                {riderBasicData.riderPercentage}%
+              </div>
+              <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                用户占比
+              </div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">
+                占电动自行车用户比例
+              </div>
             </div>
-            <div className="text-xs text-slate-500 dark:text-slate-400">
-              占电动自行车用户比例
+            
+            <div className="glass-card p-6 text-center bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 border-l-4 border-red-500">
+              <div className="text-4xl font-bold text-red-600 dark:text-red-400 mb-3">
+                20%
+              </div>
+              <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                违法占比
+              </div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">
+                2024年预估违法占比
+              </div>
+            </div>
+            
+            <div className="glass-card p-6 text-center bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 border-l-4 border-orange-500">
+              <div className="text-4xl font-bold text-orange-600 dark:text-orange-400 mb-3">
+                40%
+              </div>
+              <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                收入下降
+              </div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">
+                限速后平均收入减少
+              </div>
             </div>
           </div>
-          
-          <div className="glass-card p-6 text-center bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 border-l-4 border-red-500">
-            <div className="text-4xl font-bold text-red-600 dark:text-red-400 mb-3">
-              20%
-            </div>
-            <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-              违法占比
-            </div>
-            <div className="text-xs text-slate-500 dark:text-slate-400">
-              2024年预估违法占比
-            </div>
-          </div>
-          
-          <div className="glass-card p-6 text-center bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 border-l-4 border-orange-500">
-            <div className="text-4xl font-bold text-orange-600 dark:text-orange-400 mb-3">
-              40%
-            </div>
-            <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-              收入下降
-            </div>
-            <div className="text-xs text-slate-500 dark:text-slate-400">
-              限速后平均收入减少
-            </div>
-          </div>
-        </div>
 
-        {/* 违法占比趋势图 */}
-        <div className="glass-card p-8">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-              外卖快递骑手违法占比趋势（2021-2024）
-            </h3>
-            <div className="text-sm text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
-              违法占比(%)
+          {/* 违法占比趋势图 */}
+          <div className="glass-card p-8 mb-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                外卖快递骑手违法占比趋势（2021-2024）
+              </h3>
+              <div className="text-sm text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
+                违法占比(%)
+              </div>
             </div>
+            <ReactECharts option={violationRatioChartOption} style={{ height: 400 }} />
           </div>
-          <ReactECharts option={violationRatioChartOption} style={{ height: 400 }} />
-        </div>
 
-        {/* 违法类型分析 */}
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div className="glass-card p-8">
+          {/* 违法类型分析 */}
+          <div className="glass-card p-8 mb-8">
             <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
               骑手违法类型分布（2021年基准）
             </h3>
             <ReactECharts option={violationTypeChartOption} style={{ height: 300 }} />
           </div>
-          
-          <div className="glass-card p-8">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
-              配送压力指标
-            </h3>
-            <div className="space-y-6">
-              <div className="flex justify-between items-center p-4 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 rounded-lg">
-                <div>
-                  <div className="font-semibold text-slate-900 dark:text-white">平均每日订单</div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">高峰时段更高</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{riderBasicData.dailyOrdersNormal}-{riderBasicData.dailyOrdersPeak}</div>
-                  <div className="text-sm text-slate-500">单/天</div>
-                </div>
-              </div>
-              
-              <div className="flex justify-between items-center p-4 bg-gradient-to-r from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 rounded-lg">
-                <div>
-                  <div className="font-semibold text-slate-900 dark:text-white">配送时限要求</div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">3公里内订单</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{riderBasicData.timeLimit}</div>
-                  <div className="text-sm text-slate-500">分钟</div>
-                </div>
-              </div>
-              
-              <div className="flex justify-between items-center p-4 bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 rounded-lg">
-                <div>
-                  <div className="font-semibold text-slate-900 dark:text-white">实际配送时间</div>
-                  <div className="text-sm text-slate-600 dark:text-slate-400">含等餐与等红灯</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-red-600 dark:text-red-400">{riderBasicData.actualDeliveryTime}</div>
-                  <div className="text-sm text-slate-500">分钟</div>
-                </div>
-              </div>
-            </div>
+
+          这一现象背后，又隐藏着怎样的行业压力与生存困境？
+        </>
+      }
+      className="bg-gradient-to-b from-amber-50/50 to-red-50/50 dark:from-amber-900/20 dark:to-red-900/20"
+      isMajorSection={true}
+    >
+      
+      {/* 数据来源 - 图表部分 */}
+      <div className="text-sm text-slate-500 dark:text-slate-400 text-center mb-8">
+        数据来源：广州日报；羊城晚报
+      </div>
+
+      <div className="grid gap-1 mt-16">
+        
+        {/* ① 骑手规模与任务量 */}
+        <div>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
+            ① 骑手规模与任务量
+          </h3>
+          <RiderScale />
+        </div>
+
+        {/* ② 平台要求 vs 限速现实 */}
+        <div>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+            ② 平台要求 vs 限速现实
+          </h3>
+          <div className="mb-4 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg">
+            <p className="text-slate-700 dark:text-slate-300">
+              平台要求 3公里内订单<span className="font-semibold text-blue-600">{deliveryTimeData.platformRequirement}分钟</span>送达，
+              但在 <span className="font-semibold text-red-600">{deliveryTimeData.speedLimit}公里/小时</span>限速下，
+              实际配送（含等餐、等红灯）往往需要 
+              <span className="font-semibold text-orange-600"> {deliveryTimeData.realityTime.min}–{deliveryTimeData.realityTime.max}分钟</span>。
+            </p>
+            <p className="mt-2 text-red-600 font-semibold">
+              👉 几乎没有容错空间，超时风险大增。
+            </p>
           </div>
         </div>
 
-        {/* 经济压力分析 */}
-        <div className="glass-card p-8">
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">限速政策对骑手收入的影响</h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">限速前后收入对比</h4>
-              <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/30 dark:to-green-800/30 rounded-lg">
-                  <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">限速前月收入</div>
-                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">
-                    {incomeAndPenaltyData.incomeBeforeLimit.min}-{incomeAndPenaltyData.incomeBeforeLimit.max}元
-                  </div>
+        {/* ③ 收入与罚款 */}
+        <div>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+            ③ 收入与罚款
+          </h3>
+          <div className="mb-6 p-6 bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-lg">
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
+              骑手不仅要"拼时间"，还要承受高额罚款：
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+              <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-lg">
+                <div className="text-lg font-bold text-orange-600 dark:text-orange-400">
+                  超时罚款
                 </div>
-                
-                <div className="p-4 bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 rounded-lg">
-                  <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">限速后月收入</div>
-                  <div className="text-2xl font-bold text-red-600 dark:text-red-400">
-                    {incomeAndPenaltyData.incomeAfterLimit.min}-{incomeAndPenaltyData.incomeAfterLimit.max}元
-                  </div>
-                  <div className="text-xs text-red-500 mt-1">
-                    ↓ 减少{incomeAndPenaltyData.incomeAfterLimit.decreasePercentage}%
-                  </div>
+                <div className="text-2xl font-bold text-slate-900 dark:text-white">
+                  {penaltyData.overtime.min}–{penaltyData.overtime.max}元/单
+                </div>
+              </div>
+              
+              <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-lg">
+                <div className="text-lg font-bold text-purple-600 dark:text-purple-400">
+                  差评处罚
+                </div>
+                <div className="text-2xl font-bold text-slate-900 dark:text-white">
+                  最高 {penaltyData.badReview.amount}元
+                </div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">
+                  相当于 {penaltyData.badReview.equivalentOrders}单收入
+                </div>
+              </div>
+              
+              <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-lg">
+                <div className="text-lg font-bold text-red-600 dark:text-red-400">
+                  严重超时
+                </div>
+                <div className="text-lg font-bold text-slate-900 dark:text-white">
+                  降权处罚
+                </div>
+                <div className="text-sm text-slate-600 dark:text-slate-400">
+                  派单减少
                 </div>
               </div>
             </div>
             
-            <div>
-              <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">罚款压力</h4>
-              <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 rounded-lg">
-                  <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">超时罚款</div>
-                  <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                    {incomeAndPenaltyData.penalties.overtime.min}-{incomeAndPenaltyData.penalties.overtime.max}元/单
-                  </div>
+            <div className="p-4 bg-gradient-to-r from-red-100 to-red-200 dark:from-red-900/40 dark:to-red-800/40 rounded-lg">
+              <div className="font-bold text-red-700 dark:text-red-300 mb-2">
+                收入受到重创：
+              </div>
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="font-semibold">限速前：</span>
+                  <span className="text-green-600 font-bold">
+                    {incomeComparisonData.beforeLimit.min}–{incomeComparisonData.beforeLimit.max}元/月
+                  </span>
                 </div>
-                
-                <div className="p-4 bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-lg">
-                  <div className="text-sm text-slate-600 dark:text-slate-400 mb-1">投诉差评罚款</div>
-                  <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                    {incomeAndPenaltyData.penalties.complaint.min}-{incomeAndPenaltyData.penalties.complaint.max}元/单
-                  </div>
-                  <div className="text-xs text-purple-500 mt-1">
-                    相当于{incomeAndPenaltyData.penalties.equivalentOrders.min}-{incomeAndPenaltyData.penalties.equivalentOrders.max}单收入
-                  </div>
+                <div>
+                  <span className="font-semibold">限速后：</span>
+                  <span className="text-red-600 font-bold">
+                    下降 {incomeComparisonData.decreasePercentage.min}%–{incomeComparisonData.decreasePercentage.max}%，
+                    部分仅 {incomeComparisonData.afterLimit.min}–{incomeComparisonData.afterLimit.max}元
+                  </span>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 违法行为调查 */}
-        <div className="glass-card p-8">
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">骑手违法行为调查</h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="p-6 bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 rounded-lg text-center">
-              <div className="text-5xl font-bold text-red-600 dark:text-red-400 mb-4">
-                {incomeAndPenaltyData.violationStats.redLightViolators}%
-              </div>
-              <div className="text-lg font-semibold text-slate-900 dark:text-white mb-2">承认曾闯红灯</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">
-                主要因&ldquo;系统倒计时&rdquo;带来的时间压迫
-              </div>
-            </div>
+        {/* ④ 违规与无奈 */}
+        <div>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+            ④ 违规与无奈
+          </h3>
+          <div className="mb-6 p-6 bg-gradient-to-r from-amber-50 to-red-50 dark:from-amber-900/20 dark:to-red-900/20 rounded-lg">            
+            <p className="text-slate-700 dark:text-slate-300 mb-4">
+              <span className="font-semibold text-slate-900 dark:text-white">压力之下的违法行为：</span>在收入下降和罚款压力下，违规几乎成了"生存手段"。
+            </p>
             
-            <div className="p-6 bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 rounded-lg text-center">
-              <div className="text-5xl font-bold text-orange-600 dark:text-orange-400 mb-4">
-                {incomeAndPenaltyData.violationStats.wrongLaneUsers}%
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-lg">
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="text-3xl">🚦</span>
+                  <div>
+                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">
+                      {violationBehaviorData.redLightViolation.percentage}% 闯红灯
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
+                      原因：{violationBehaviorData.redLightViolation.reason}
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="text-lg font-semibold text-slate-900 dark:text-white mb-2">驶入机动车道</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">
-                因非机动车道被违停车辆占用
+              
+              <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-lg">
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="text-3xl">🚗</span>
+                  <div>
+                    <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
+                      {violationBehaviorData.wrongLane.percentage}% 驶入机动车道
+                    </div>
+                    <div className="text-sm text-slate-600 dark:text-slate-400">
+                      原因：{violationBehaviorData.wrongLane.reason}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 数据说明 */}
-        <div className="glass-card p-6 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-800/50 dark:to-gray-800/50">
-          <h4 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">数据说明</h4>
-          <div className="grid md:grid-cols-2 gap-4 text-sm text-slate-600 dark:text-slate-400">
-            <div className="space-y-2">
-              <div className="flex items-start space-x-3">
-                <div className="w-2 h-2 bg-amber-500 rounded-full mt-2 flex-shrink-0"></div>
-                <div>
-                  广州外卖、快递骑手虽然仅占全市电动自行车用户不足5%，却长期贡献着远高于占比的交通违法量
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                <div>
-                  限速实施后，电动车解码器销量激增，反映出部分骑手通过技术手段解除限速以维持原有效率
-                </div>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-start space-x-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                <div>
-                  目前全市约有12万名活跃骑手，平均每天需完成30-40单配送任务，午晚餐高峰时段甚至高达50单
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                <div>
-                  平台要求3公里内订单30分钟送达，而15公里/小时的限速政策使得实际配送时间延长至20-25分钟
-                </div>
+        {/* ⑤ 衍生现象 */}
+        <div>
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+            ⑤ 衍生现象
+          </h3>
+          <div className="p-6 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-800/50 dark:to-gray-800/50 rounded-lg border-l-4 border-amber-500">
+            <div className="flex items-start space-x-4">
+              <span className="text-4xl">⚡</span>
+              <div>
+                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  电动车解码器市场兴起
+                </h4>
+                <p className="text-slate-700 dark:text-slate-300">
+                  这股压力催生了一个灰色市场：<span className="font-semibold text-amber-600">电动车解码器销量激增</span>。
+                  许多骑手选择解除限速，以恢复原有效率。这一现象反映了政策执行与现实需求之间的巨大落差，
+                  也揭示了在生存压力面前，规则与安全往往让位于经济需要的残酷现实。
+                </p>
               </div>
             </div>
           </div>
         </div>
+
+
+
 
 
       </div>
       
       <p className="mt-8 text-sm text-slate-500 dark:text-slate-400 text-center">
-        数据来源：广州日报；南方都市报；羊城晚报
+        数据来源：光明网、人民政协网
       </p>
     </Section>
   );
@@ -492,10 +523,18 @@ const violationRatioChartOption: EChartsOption = {
       label: {
         show: true,
         position: 'top',
-        formatter: '{c}%',
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        formatter: function(params: any) {
+          const data = riderViolationRatioData[params.dataIndex];
+          if (data.year === 2023 || data.year === 2024) {
+            return `${params.value}%\n(预估)`;
+          }
+          return `${params.value}%`;
+        },
         color: '#ef4444',
-        fontSize: 12,
-        fontWeight: 'bold'
+        fontSize: 11,
+        fontWeight: 'bold',
+        lineHeight: 14
       },
       areaStyle: {
         color: {
