@@ -19,9 +19,10 @@ export function ViolationBehavior() {
       borderWidth: 1,
       textStyle: { color: '#334155', fontSize: 12 },
       extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); backdrop-filter: blur(8px);',
-      formatter: function(params: any) {
-        if (Array.isArray(params) && params.length > 0) {
-          const param = params[0];
+      formatter: function(params: unknown) {
+        const typedParams = params as any;
+        if (Array.isArray(typedParams) && typedParams.length > 0) {
+          const param = typedParams[0];
           if (param.dataIndex === 0) {
             return `
               <div style="font-weight: bold; margin-bottom: 4px;">闯红灯行为</div>
@@ -102,21 +103,23 @@ export function ViolationBehavior() {
         ],
         barWidth: '50%',
         itemStyle: {
-          color: function(params: any) {
-            return params.dataIndex === 0 ? '#ef4444' : '#f97316';
+          color: function(params: unknown) {
+            const typedParams = params as any;
+            return typedParams.dataIndex === 0 ? '#ef4444' : '#f97316';
           },
           borderRadius: [8, 8, 0, 0]
         },
         label: {
           show: true,
           position: 'top',
-          color: function(params: any) {
-            return params.dataIndex === 0 ? '#ef4444' : '#f97316';
+          color: function(params: unknown) {
+            const typedParams = params as any;
+            return typedParams.dataIndex === 0 ? '#ef4444' : '#f97316';
           },
           fontSize: 18,
           fontWeight: 'bold',
           formatter: '{c}%'
-        }
+        } as any
       }
     ]
   };

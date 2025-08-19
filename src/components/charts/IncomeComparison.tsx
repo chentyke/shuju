@@ -23,9 +23,10 @@ export function IncomeComparison() {
       borderWidth: 1,
       textStyle: { color: '#334155', fontSize: 12 },
       extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); backdrop-filter: blur(8px);',
-      formatter: function(params: any) {
-        if (Array.isArray(params) && params.length > 0) {
-          const param = params[0];
+      formatter: function(params: unknown) {
+        const typedParams = params as any;
+        if (Array.isArray(typedParams) && typedParams.length > 0) {
+          const param = typedParams[0];
           if (param.dataIndex === 0) {
             return `
               <div style="font-weight: bold; margin-bottom: 4px;">限速前收入</div>
@@ -98,27 +99,30 @@ export function IncomeComparison() {
         data: [beforeAvg, afterAvg],
         barWidth: '50%',
         itemStyle: {
-          color: function(params: any) {
-            return params.dataIndex === 0 ? '#10b981' : '#ef4444';
+          color: function(params: unknown) {
+            const typedParams = params as any;
+            return typedParams.dataIndex === 0 ? '#10b981' : '#ef4444';
           },
           borderRadius: [8, 8, 0, 0]
         },
         label: {
           show: true,
           position: 'top',
-          color: function(params: any) {
-            return params.dataIndex === 0 ? '#10b981' : '#ef4444';
+          color: function(params: unknown) {
+            const typedParams = params as any;
+            return typedParams.dataIndex === 0 ? '#10b981' : '#ef4444';
           },
           fontSize: 16,
           fontWeight: 'bold',
-          formatter: function(params: any) {
-            if (params.dataIndex === 0) {
+          formatter: function(params: unknown) {
+            const typedParams = params as any;
+            if (typedParams.dataIndex === 0) {
               return `${incomeComparisonData.beforeLimit.min}-${incomeComparisonData.beforeLimit.max}元`;
             } else {
               return `${incomeComparisonData.afterLimit.min}-${incomeComparisonData.afterLimit.max}元`;
             }
           }
-        },
+        } as any,
         // 添加误差线显示范围
         markArea: {
           silent: true,

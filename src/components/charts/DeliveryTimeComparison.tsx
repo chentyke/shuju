@@ -19,9 +19,10 @@ export function DeliveryTimeComparison() {
       borderWidth: 1,
       textStyle: { color: '#334155', fontSize: 12 },
       extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); backdrop-filter: blur(8px);',
-      formatter: function(params: any) {
-        if (Array.isArray(params) && params.length > 0) {
-          const param = params[0];
+      formatter: function(params: unknown) {
+        const typedParams = params as any;
+        if (Array.isArray(typedParams) && typedParams.length > 0) {
+          const param = typedParams[0];
           if (param.seriesName === '平台要求') {
             return `
               <div style="font-weight: bold; margin-bottom: 4px;">${param.name}</div>
@@ -99,8 +100,9 @@ export function DeliveryTimeComparison() {
           color: '#10b981',
           fontSize: 14,
           fontWeight: 'bold',
-          formatter: function(params: any) {
-            return params.value > 0 ? `${params.value}分钟` : '';
+          formatter: function(params: unknown) {
+            const typedParams = params as any;
+            return typedParams.value > 0 ? `${typedParams.value}分钟` : '';
           }
         }
       },

@@ -25,20 +25,21 @@ export function ViolationTimeDistribution() {
   }, [isPlaying, inView]);
 
   // 获取24小时分布图表配置
-  const getHourlyChartOption = (): any => {
+  const getHourlyChartOption = () => {
     // const maxViolations = Math.max(...hourlyViolationData.map(d => d.violations));
     
     return {
       backgroundColor: 'transparent',
       tooltip: {
-        trigger: 'axis',
+        trigger: 'axis' as const,
         backgroundColor: 'rgba(255, 255, 255, 0.95)',
         borderColor: '#e2e8f0',
         borderWidth: 1,
         textStyle: { color: '#334155', fontSize: 12 },
         extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); backdrop-filter: blur(8px);',
-        formatter: (params: any) => {
-          const data = params[0];
+        formatter: (params: unknown) => {
+          const typedParams = params as any;
+          const data = typedParams[0];
           const hour = data.dataIndex;
           const violations = data.value;
           const isRush = hourlyViolationData[hour].isRushHour;
@@ -85,12 +86,12 @@ export function ViolationTimeDistribution() {
         },
         axisLine: { show: false },
         axisTick: { show: false },
-        splitLine: { lineStyle: { color: '#f1f5f9', type: 'dashed', width: 1 } }
+        splitLine: { lineStyle: { color: '#f1f5f9', type: 'dashed' as const, width: 1 } }
       },
       series: [
         {
           name: '违法次数',
-          type: 'bar',
+          type: 'bar' as const,
           data: hourlyViolationData.map((item, index) => ({
             value: item.violations,
             itemStyle: {
@@ -104,7 +105,7 @@ export function ViolationTimeDistribution() {
           })),
           barWidth: '60%',
           animationDuration: 1000,
-          animationEasing: 'cubicOut',
+          animationEasing: 'cubicOut' as const,
           emphasis: {
             itemStyle: {
               shadowBlur: 10,
@@ -117,7 +118,7 @@ export function ViolationTimeDistribution() {
   };
 
   // 获取违法类型饼图配置
-  const getViolationTypeOption = (): any => {
+  const getViolationTypeOption = () => {
     let data;
     let title;
     const hour = currentHour;
@@ -155,18 +156,21 @@ export function ViolationTimeDistribution() {
         borderWidth: 1,
         textStyle: { color: tooltipTextColor, fontSize: 12 },
         extraCssText: 'box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12); backdrop-filter: blur(8px);',
-        formatter: (params: any) => `
-          <div style="padding: 8px;">
-            <div style="font-weight: bold; margin-bottom: 4px; color: ${titleColor};">违法类型分析</div>
-            <div style="color: ${tooltipTextColor};">${params.name}: <span style="color: #ef4444; font-weight: bold;">${params.value} 起</span></div>
-            <div style="color: ${tooltipTextColor};">占比: <span style="color: #f59e0b; font-weight: bold;">${params.percent}%</span></div>
-          </div>
-        `
+        formatter: (params: unknown) => {
+          const typedParams = params as any;
+          return `
+            <div style="padding: 8px;">
+              <div style="font-weight: bold; margin-bottom: 4px; color: ${titleColor};">违法类型分析</div>
+              <div style="color: ${tooltipTextColor};">${typedParams.name}: <span style="color: #ef4444; font-weight: bold;">${typedParams.value} 起</span></div>
+              <div style="color: ${tooltipTextColor};">占比: <span style="color: #f59e0b; font-weight: bold;">${typedParams.percent}%</span></div>
+            </div>
+          `;
+        }
       },
       series: [
         {
           name: '违法类型',
-          type: 'pie',
+          type: 'pie' as const,
           radius: ['45%', '85%'],
           center: ['50%', '52%'],
           data: pieData,
@@ -178,13 +182,14 @@ export function ViolationTimeDistribution() {
           color: colors,
           label: {
             show: true,
-            position: 'inside',
-            formatter: function(params: any) {
-              return `${params.name}\n${params.percent}%`;
+            position: 'inside' as const,
+            formatter: function(params: unknown) {
+              const typedParams = params as any;
+              return `${typedParams.name}\n${typedParams.percent}%`;
             },
             fontSize: 12,
             color: '#fff',
-            fontWeight: 'bold',
+            fontWeight: 'bold' as const,
             textShadowColor: 'rgba(0, 0, 0, 0.8)',
             textShadowBlur: 3,
             textShadowOffsetX: 1,
@@ -201,11 +206,11 @@ export function ViolationTimeDistribution() {
             label: {
               show: true,
               fontSize: 14,
-              fontWeight: 'bold'
+              fontWeight: 'bold' as const
             }
           },
-          animationType: 'scale',
-          animationEasing: 'elasticOut',
+          animationType: 'scale' as const,
+          animationEasing: 'elasticOut' as const,
           animationDuration: 1000
         }
       ]
