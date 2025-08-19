@@ -1,3 +1,4 @@
+import { TitlePage } from "@/components/title/TitlePage";
 import { Hero } from "@/components/hero/Hero";
 import { DailyTripsSection } from "@/components/trips/DailyTripsSection";
 import { ViolationTrends } from "@/components/charts/ViolationTrends";
@@ -12,6 +13,7 @@ import { Footer } from "@/components/footer/Footer";
 export default function Home() {
   return (
     <div className="font-sans">
+      <TitlePage />
       <Hero />
       <DailyTripsSection />
       
