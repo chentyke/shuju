@@ -91,151 +91,220 @@ export function RiderComments() {
   );
 }
 
-// 超简单弹幕系统 - 无复杂状态管理
+// 随机浮动评论展示系统
 function BilibiliDanmakuContainer() {
-  const [comments] = useState(() => 
-    socialMediaComments.slice(0, 8).map((comment, index) => ({
-      id: index,
+  const [activeComments, setActiveComments] = useState<Array<{
+    id: string;
+    text: string;
+    emotion: string;
+    likes: number;
+    x: number;
+    y: number;
+    scale: number;
+    rotation: number;
+  }>>([]);
+
+  const [commentIndex, setCommentIndex] = useState(0);
+
+  // 生成随机位置 - 确保完全在可显示范围内
+  const getRandomPosition = () => {
+    return {
+      x: Math.random() * 62 + 8, // 8%-70% 确保固定宽度气泡不被截断
+      y: Math.random() * 65 + 5, // 5%-70% 考虑气泡高度，确保完全可见
+      scale: 0.85 + Math.random() * 0.3, // 0.85-1.15倍缩放，增加变化
+      rotation: (Math.random() - 0.5) * 8 // -4度到4度旋转
+    };
+  };
+
+  // 添加新评论气泡
+  const addComment = useCallback(() => {
+    const comment = socialMediaComments[commentIndex % socialMediaComments.length];
+    const position = getRandomPosition();
+    
+    const newComment = {
+      id: `comment-${Date.now()}-${Math.random()}`,
       text: comment.text,
       emotion: comment.emotion,
       likes: comment.likes,
-      track: index % 6,
-      delay: index * 4 // 每4秒一条
-    }))
-  );
+      ...position
+    };
 
-  const [expandedId, setExpandedId] = useState<number | null>(null);
+    setActiveComments(prev => [...prev, newComment]);
+    setCommentIndex(prev => prev + 1);
 
-  const toggleExpand = (id: number) => {
-    setExpandedId(expandedId === id ? null : id);
-  };
+    // 8秒后移除这条评论
+    setTimeout(() => {
+      setActiveComments(prev => prev.filter(c => c.id !== newComment.id));
+    }, 8000);
+  }, [commentIndex]);
+
+  // 定期添加评论 - 允许同时出现两条
+  useEffect(() => {
+    // 1秒后添加第一条
+    const firstTimer = setTimeout(addComment, 1000);
+    
+    // 每3-5秒随机添加新评论，与8秒显示时间形成重叠
+    const scheduleNext = () => {
+      const delay = 3000 + Math.random() * 2000; // 3-5秒
+      setTimeout(() => {
+        addComment();
+        scheduleNext();
+      }, delay);
+    };
+    
+    const initialDelay = setTimeout(scheduleNext, 4000);
+    
+    return () => {
+      clearTimeout(firstTimer);
+      clearTimeout(initialDelay);
+    };
+  }, [addComment]);
 
   return (
-    <div className="relative w-full h-96 overflow-hidden">
-      {comments.map((comment) => (
-        <FixedBarrageItem 
-          key={comment.id}
-          comment={comment}
-          expanded={expandedId === comment.id}
-          onToggle={() => toggleExpand(comment.id)}
-        />
-      ))}
+    <div className="relative w-full" style={{ height: '600px' }}>
+      {/* 浮动评论容器 - 扩大显示区域 */}
+      <div className="relative w-full h-full overflow-hidden">
+        {activeComments.map((comment) => (
+          <FloatingBubble 
+            key={comment.id}
+            comment={comment}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
-// 修复版弹幕组件 - 安全的CSS样式
-function FixedBarrageItem({ 
-  comment,
-  expanded,
-  onToggle 
+// 优化的浮动气泡组件 - 独立动画
+function FloatingBubble({ 
+  comment 
 }: { 
   comment: {
-    id: number;
+    id: string;
     text: string;
     emotion: string;
     likes: number;
-    track: number;
-    delay: number;
+    x: number;
+    y: number;
+    scale: number;
+    rotation: number;
   };
-  expanded: boolean;
-  onToggle: () => void;
 }) {
   const color = emotionColors[comment.emotion as keyof typeof emotionColors] || "#6b7280";
-  
-  // 安全的颜色处理
-  const backgroundColor = `${color}33`; // 使用固定透明度
-  const borderColor = color;
+  const [opacity, setOpacity] = useState(0);
+  const [currentScale, setCurrentScale] = useState(0.8);
+  const [isHovered, setIsHovered] = useState(false);
+  const [floatOffset, setFloatOffset] = useState(0);
 
-  const itemStyle: React.CSSProperties = {
+  // 浮动动画循环
+  useEffect(() => {
+    let animationFrame: number;
+    let startTime = Date.now();
+    
+    const animate = () => {
+      const elapsed = (Date.now() - startTime) / 1000;
+      const newOffset = Math.sin(elapsed * 0.5) * 8 + Math.cos(elapsed * 0.3) * 4;
+      setFloatOffset(newOffset);
+      
+      if (!isHovered) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+    
+    if (!isHovered) {
+      animate();
+    }
+    
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [isHovered]);
+
+  // 进入和退出动画
+  useEffect(() => {
+    // 进入动画
+    const enterTimer = setTimeout(() => {
+      setOpacity(1);
+      setCurrentScale(comment.scale);
+    }, 200);
+
+    // 退出动画
+    const leaveTimer = setTimeout(() => {
+      setOpacity(0);
+      setCurrentScale(comment.scale * 0.8);
+    }, 7000);
+
+    return () => {
+      clearTimeout(enterTimer);
+      clearTimeout(leaveTimer);
+    };
+  }, [comment.scale]);
+
+  const bubbleStyle: React.CSSProperties = {
     position: 'absolute',
-    top: comment.track * 65 + 20,
-    left: '100%',
-    zIndex: expanded ? 50 : 10,
-    transform: expanded ? 'translateX(-300px)' : undefined,
-    transition: 'transform 0.3s ease'
-  };
-
-  const animationStyle: React.CSSProperties = expanded ? {} : {
-    animation: `fixed-slide 20s linear infinite`,
-    animationDelay: `${comment.delay}s`
-  };
-
-  const contentStyle: React.CSSProperties = {
-    borderLeft: `4px solid ${borderColor}`
-  };
-
-  const tagStyle: React.CSSProperties = {
-    backgroundColor,
-    color: borderColor
+    left: `${comment.x}%`,
+    top: `${comment.y}%`,
+    transform: `
+      scale(${isHovered ? currentScale * 1.05 : currentScale}) 
+      rotate(${comment.rotation}deg) 
+      translateY(${floatOffset}px)
+    `,
+    transformOrigin: 'center',
+    opacity,
+    transition: 'opacity 0.6s ease-out, transform 0.3s ease-out',
+    zIndex: isHovered ? 50 : 20
   };
 
   return (
     <div
-      style={{...itemStyle, ...animationStyle}}
-      onClick={onToggle}
+      style={bubbleStyle}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div
-        className={`
-          ${expanded ? 'w-80 p-4 rounded-lg' : 'px-3 py-2 rounded-full cursor-pointer hover:scale-105'}
-          bg-white dark:bg-gray-800 shadow-md transition-all duration-300
-        `}
-        style={contentStyle}
-      >
-        {expanded ? (
-          // 展开状态
-          <div className="space-y-3">
-            <div className="flex justify-between items-center">
-              <span 
-                className="px-2 py-1 rounded text-xs font-medium"
-                style={tagStyle}
-              >
-                {getEmotionLabel(comment.emotion)}
-              </span>
-              <button 
-                className="text-xs bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 px-3 py-1 rounded"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggle();
-                }}
-              >
-                收起
-              </button>
+      <div className="w-72">
+        {/* 简化的消息气泡 */}
+        <div 
+          className="relative bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg border border-white/50 dark:border-gray-600/50 hover:shadow-xl transition-shadow duration-300"
+          style={{
+            borderLeft: `4px solid ${color}`
+          }}
+        >
+          {/* 情绪标签 */}
+          <div className="flex items-center mb-2">
+            <div 
+              className="w-4 h-4 rounded-full mr-2 flex items-center justify-center text-xs font-bold text-white"
+              style={{ backgroundColor: color }}
+            >
+              骑
             </div>
-            <p className="text-sm text-gray-800 dark:text-gray-200">
-              "{comment.text}"
-            </p>
-            <div className="flex items-center space-x-2 text-xs text-gray-500">
-              <span>❤️ {comment.likes}</span>
-            </div>
-          </div>
-        ) : (
-          // 收缩状态
-          <div className="flex items-center space-x-2 whitespace-nowrap">
             <span 
               className="px-2 py-0.5 rounded text-xs font-medium"
-              style={tagStyle}
+              style={{ 
+                backgroundColor: `${color}33`,
+                color: color
+              }}
             >
               {getEmotionLabel(comment.emotion)}
             </span>
-            <span className="text-sm text-gray-800 dark:text-gray-200 max-w-48 truncate">
-              "{comment.text}"
-            </span>
-            <span className="text-xs text-gray-500">❤️{comment.likes}</span>
           </div>
-        )}
+          
+          {/* 消息内容 */}
+          <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed mb-2">
+            "{comment.text}"
+          </p>
+          
+          {/* 底部信息 */}
+          <div className="flex items-center justify-between text-xs text-gray-500">
+            <div className="flex items-center">
+              <span className="mr-1">❤️</span>
+              <span>{comment.likes}</span>
+            </div>
+            <span className="opacity-60">刚刚</span>
+          </div>
+        </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fixed-slide {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(calc(-100vw - 400px));
-          }
-        }
-      `}</style>
     </div>
   );
 }
