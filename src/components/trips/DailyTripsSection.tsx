@@ -113,8 +113,11 @@ export function DailyTripsSection() {
   return (
     <Section 
       id="daily-trips"
+      title="疾驰之势"
+      subtitle="电动自行车出行量激增"
       className="bg-gradient-to-b from-white via-slate-50/50 to-emerald-50/30 dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900"
       fullScreen
+      isMajorSection={true}
     >
       <div className="grid lg:grid-cols-2 gap-12 items-center">
         {/* 左侧：内容介绍 */}

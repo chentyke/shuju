@@ -7,22 +7,22 @@ export function Footer() {
     <footer className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 border-t border-gray-200 dark:border-gray-700">
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* 主要内容区域 */}
-        <div className="relative grid md:grid-cols-3 gap-12 items-center">
+        <div className="relative grid md:grid-cols-3 gap-12 items-start">
           {/* 项目团队信息 */}
-          <div className="md:col-span-2 space-y-6">
-            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-6">项目团队</h3>
+          <div className="md:col-span-2 space-y-4">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">项目团队</h3>
             
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-8">
               {/* 指导老师 */}
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <h4 className="font-semibold text-gray-800 dark:text-gray-200 text-base">指导老师</h4>
                 <p className="text-gray-700 dark:text-gray-300 font-medium">王怡霖</p>
               </div>
 
               {/* 作者 */}
-              <div className="space-y-3">
+              <div className="space-y-2">
                 <h4 className="font-semibold text-gray-800 dark:text-gray-200 text-base">作者</h4>
-                <div className="grid grid-cols-2 gap-3 text-gray-700 dark:text-gray-300">
+                <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-gray-700 dark:text-gray-300">
                   <div className="font-medium">陈正洋</div>
                   <div className="font-medium">刘怡婷</div>
                   <div className="font-medium">唐婧韬</div>
@@ -37,14 +37,16 @@ export function Footer() {
 
           {/* 学校Logo */}
           <div className="flex items-center justify-center md:justify-end">
-            <Image
-              src="/bnbu-logo.png"
-              alt="Beijing Normal University-Hong Kong Baptist University United International College"
-              width={300}
-              height={120}
-              className="object-contain"
-              priority
-            />
+            <a href="https://uic.edu.cn" target="_blank" rel="noopener noreferrer">
+              <Image
+                src="/bnbu-logo.png"
+                alt="Beijing Normal University-Hong Kong Baptist University United International College"
+                width={300}
+                height={120}
+                className="object-contain hover:opacity-80 transition-opacity mt-4"
+                priority
+              />
+            </a>
           </div>
         </div>
 

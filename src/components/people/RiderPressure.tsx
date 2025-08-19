@@ -16,6 +16,7 @@ export function RiderPressure() {
       subtitle="外卖骑手：低占有率 高违法率的高风险群体"
       description="在这些违法与事故数据背后，有一个群体的身影格外突出——外卖与快递骑手。他们虽然只占电动自行车总量的一小部分，却在交通违法和事故统计中长期高居前列。这一现象背后，又隐藏着怎样的行业压力与生存困境？"
       className="bg-gradient-to-b from-amber-50/50 to-red-50/50 dark:from-amber-900/20 dark:to-red-900/20"
+      isMajorSection={true}
     >
       <div className="grid gap-8">
         {/* 核心统计数据 */}

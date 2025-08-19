@@ -13,6 +13,7 @@ type SectionProps = PropsWithChildren<{
   fullScreen?: boolean;
   withBorder?: boolean;
   animated?: boolean;
+  isMajorSection?: boolean; // 新增：标识是否为主要章节
 }>;
 
 export function Section({ 
@@ -24,7 +25,8 @@ export function Section({
   children, 
   fullScreen = true, 
   withBorder = false,
-  animated = true
+  animated = true,
+  isMajorSection = false
 }: SectionProps) {
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -53,7 +55,12 @@ export function Section({
               </div>
             )}
             {title && (
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
+              <h2 className={clsx(
+                "font-bold mb-4 leading-tight",
+                isMajorSection 
+                  ? "text-4xl sm:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 dark:from-emerald-400 dark:via-teal-400 dark:to-cyan-400 drop-shadow-sm" 
+                  : "text-3xl sm:text-4xl lg:text-5xl text-slate-900 dark:text-white"
+              )}>
                 {title}
               </h2>
             )}

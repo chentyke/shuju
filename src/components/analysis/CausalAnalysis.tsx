@@ -8,7 +8,7 @@ const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false }) 
 
 export function CausalAnalysis() {
   return (
-    <Section id="causal-analysis" title="探因溯源" subtitle="电动自行车治理困境的深层原因">
+    <Section id="causal-analysis" title="探因溯源" subtitle="电动自行车治理困境的深层原因" isMajorSection={true}>
       <div className="space-y-8">
         {/* 城市治理的不足 */}
         <div className="rounded-xl border p-6 bg-white/60 dark:bg-white/5">

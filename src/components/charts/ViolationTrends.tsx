@@ -15,6 +15,7 @@ export function ViolationTrends() {
       subtitle="违法数量持续高位 增长势头明显"
       description="过去四年，广州电动自行车交通违法查处量始终维持在高位，并呈现总体上升趋势。"
       className="bg-gradient-to-b from-red-50/50 to-orange-50/50 dark:from-red-900/20 dark:to-orange-900/20"
+      isMajorSection={true}
     >
       <div className="grid gap-8">
         {/* 主图表 */}

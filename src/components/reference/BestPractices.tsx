@@ -8,7 +8,7 @@ const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false }) 
 
 export function BestPractices() {
   return (
-    <Section id="best-practices" title="他山之石" subtitle="先进城市的管理经验与启示">
+    <Section id="best-practices" title="他山之石" subtitle="先进城市的管理经验与启示" isMajorSection={true}>
       <div className="space-y-8">
         {/* 引言 */}
         <div className="rounded-xl border p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20">

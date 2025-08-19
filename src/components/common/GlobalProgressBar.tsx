@@ -193,12 +193,11 @@ export function GlobalProgressBar() {
             </div>
             <div className="space-y-0">
               {[
-                { id: 'top', label: '🏁 页面顶部' },
-                { id: 'daily-trips', label: '📊 出行量趋势' },
-                { id: 'violation-trends', label: '⚠️ 违法数据' },
-                { id: 'spatio-temporal-clustering', label: '🗺️ 时空分析' },
-                { id: 'medical-impact', label: '🏥 医疗影响' },
-                { id: 'rider-pressure', label: '🚴 逐单争速' }
+                { id: 'daily-trips', label: '🚀 疾驰之势' },
+                { id: 'violation-trends', label: '⚠️ 隐患在途' },
+                { id: 'rider-pressure', label: '🚴 逐单争速' },
+                { id: 'causal-analysis', label: '🔍 探因溯源' },
+                { id: 'best-practices', label: '🌟 他山之石' }
               ].map((item, index) => (
                 <button
                   key={index}
