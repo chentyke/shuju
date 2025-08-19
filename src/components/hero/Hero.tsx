@@ -24,13 +24,7 @@ export function Hero() {
 
         {/* 右侧视频 */}
         <div className="lg:pl-8">
-          <div 
-            className="relative max-w-2xl mx-auto"
-            style={{ 
-              transform: 'scale(1.5)', 
-              transformOrigin: 'center center'
-            }}
-          >
+          <div className="relative max-w-lg mx-auto">
             {/* TV框容器 */}
             <div className="relative">
               {/* 视频 */}
@@ -38,7 +32,7 @@ export function Hero() {
                 <video 
                   className="absolute inset-0 w-full h-full object-cover"
                   style={{
-                    transform: 'scale(0.39) translateX(-8%) translateY(12%)',
+                    transform: 'scale(0.6) translateX(-8%) translateY(12%)',
                     transformOrigin: 'center center'
                   }}
                   autoPlay
@@ -52,22 +46,27 @@ export function Hero() {
                 </video>
               </div>
               
-              {/* TV框覆盖层 */}
+              {/* TV框覆盖层 - 调整大小以匹配视频 */}
               <div className="absolute inset-0 pointer-events-none">
                 <img 
                   src="/TV.png" 
                   alt="TV Frame"
                   className="w-full h-full object-contain"
                   style={{ 
-                    filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))' 
+                    filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.5))',
+                    transform: 'scale(1.35)',
+                    transformOrigin: 'center center'
                   }}
                 />
               </div>
             </div>
             
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-8 text-center">
-              广州电动自行车交通现状
-            </p>
+            {/* 视频标题 - 确保在缩放容器外部 */}
+            <div className="mt-6 text-center">
+              <p className="text-lg font-medium text-slate-700 dark:text-slate-300">
+                广州电动自行车交通现状
+              </p>
+            </div>
           </div>
         </div>
       </div>

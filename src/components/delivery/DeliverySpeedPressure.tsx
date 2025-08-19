@@ -18,13 +18,7 @@ export function DeliverySpeedPressure() {
     <Section 
       id="delivery-speed-pressure" 
       title="逐单争速部分"
-      description={
-        <>
-          广州有 <span className="font-semibold text-blue-600">{riderScaleData.activeRiders}万</span> 活跃骑手，
-          在平台算法和时间压力的双重驱动下，他们每天都在与时间赛跑。
-          然而，限速政策的实施让这场竞速变得更加激烈和危险。
-        </>
-      }
+      description="广州有12万活跃骑手，在平台算法和时间压力的双重驱动下，他们每天都在与时间赛跑。然而，限速政策的实施让这场竞速变得更加激烈和危险。"
       className="bg-gradient-to-b from-blue-50/50 to-amber-50/50 dark:from-blue-900/20 dark:to-amber-900/20"
       isMajorSection={true}
     >

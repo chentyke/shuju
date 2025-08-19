@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useInView } from "react-intersection-observer";
 import { restrictedRoads, getActiveRestrictionsAtTime } from "@/data/spatioTemporalViolations";
@@ -16,6 +16,7 @@ export function RestrictedRoadsMap() {
   const [currentTime, setCurrentTime] = useState({ hour: 8, minute: 0 });
   const [isPlaying, setIsPlaying] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const mapRef = useRef<any>(null);
   const { ref, inView } = useInView({
     threshold: 0.3,
     triggerOnce: true,
@@ -24,6 +25,17 @@ export function RestrictedRoadsMap() {
   // 在客户端加载地图
   useEffect(() => {
     setMapLoaded(true);
+    
+    // 清理函数
+    return () => {
+      if (mapRef.current) {
+        try {
+          mapRef.current.remove();
+        } catch (error) {
+          console.log('Map cleanup error:', error);
+        }
+      }
+    };
   }, []);
 
   // 自动播放时间轴
@@ -42,7 +54,11 @@ export function RestrictedRoadsMap() {
         });
       }, 1000);
     }
-    return () => clearInterval(interval);
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
   }, [isPlaying, inView]);
 
   // 获取当前时间的活跃限行路段
@@ -175,12 +191,14 @@ export function RestrictedRoadsMap() {
 
       {/* 地图容器 */}
       <div className="glass-card p-0 overflow-hidden">
-        <MapContainer
-          center={[23.125, 113.28]} // 广州市中心
-          zoom={12}
-          style={{ height: '500px', width: '100%' }}
-          zoomControl={true}
-        >
+        {inView && (
+          <MapContainer
+            center={[23.125, 113.28]} // 广州市中心
+            zoom={12}
+            style={{ height: '400px', width: '100%' }}
+            zoomControl={true}
+            ref={mapRef}
+          >
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -251,7 +269,8 @@ export function RestrictedRoadsMap() {
               </Polyline>
             );
           })}
-        </MapContainer>
+          </MapContainer>
+        )}
       </div>
 
       {/* 统计信息 */}

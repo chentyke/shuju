@@ -24,95 +24,88 @@ export function RiderPressure() {
     <Section 
       id="rider-pressure" 
       title="逐单争速"
-      description={
-        <>
-          在这些违法与事故数据背后，有一个群体的身影格外突出——<span className="font-semibold text-amber-600">外卖与快递骑手</span>。他们虽然只占电动自行车总量的一小部分，却在交通违法和事故统计中长期高居前列。
-          
-          {/* 核心统计数据 */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 my-8">
-            <div className="glass-card p-6 text-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border-l-4 border-blue-500">
-              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-3">
-                {riderBasicData.totalActiveRiders}万
-              </div>
-              <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                活跃骑手
-              </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
-                每日实际接单人数
-              </div>
-            </div>
-            
-            <div className="glass-card p-6 text-center bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 border-l-4 border-amber-500">
-              <div className="text-4xl font-bold text-amber-600 dark:text-amber-400 mb-3">
-                {riderBasicData.riderPercentage}%
-              </div>
-              <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                用户占比
-              </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
-                占电动自行车用户比例
-              </div>
-            </div>
-            
-            <div className="glass-card p-6 text-center bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 border-l-4 border-red-500">
-              <div className="text-4xl font-bold text-red-600 dark:text-red-400 mb-3">
-                20%
-              </div>
-              <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                违法占比
-              </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
-                2024年预估违法占比
-              </div>
-            </div>
-            
-            <div className="glass-card p-6 text-center bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 border-l-4 border-orange-500">
-              <div className="text-4xl font-bold text-orange-600 dark:text-orange-400 mb-3">
-                40%
-              </div>
-              <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                收入下降
-              </div>
-              <div className="text-xs text-slate-500 dark:text-slate-400">
-                限速后平均收入减少
-              </div>
-            </div>
-          </div>
-
-          {/* 违法占比趋势图 */}
-          <div className="glass-card p-8 mb-8">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                外卖快递骑手违法占比趋势（2021-2024）
-              </h3>
-              <div className="text-sm text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
-                违法占比(%)
-              </div>
-            </div>
-            <ReactECharts option={violationRatioChartOption} style={{ height: 400 }} />
-          </div>
-
-          {/* 违法类型分析 */}
-          <div className="glass-card p-8 mb-8">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
-              骑手违法类型分布（2021年基准）
-            </h3>
-            <ReactECharts option={violationTypeChartOption} style={{ height: 300 }} />
-          </div>
-
-          这一现象背后，又隐藏着怎样的行业压力与生存困境？
-        </>
-      }
+      description="在这些违法与事故数据背后，有一个群体的身影格外突出——外卖与快递骑手。他们虽然只占电动自行车总量的一小部分，却在交通违法和事故统计中长期高居前列。"
       className="bg-gradient-to-b from-amber-50/50 to-red-50/50 dark:from-amber-900/20 dark:to-red-900/20"
       isMajorSection={true}
     >
+      {/* 核心统计数据 */}
+      <div className="grid grid-cols-3 gap-6 mb-8">
+        <div className="glass-card p-6 text-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border-l-4 border-blue-500">
+          <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-3">
+            {riderBasicData.totalActiveRiders}万
+          </div>
+          <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+            活跃骑手
+          </div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">
+            每日实际接单人数
+          </div>
+        </div>
+        
+        <div className="glass-card p-6 text-center bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 border-l-4 border-amber-500">
+          <div className="text-4xl font-bold text-amber-600 dark:text-amber-400 mb-3">
+            {riderBasicData.riderPercentage}%
+          </div>
+          <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+            用户占比
+          </div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">
+            占电动自行车用户比例
+          </div>
+        </div>
+        
+        <div className="glass-card p-6 text-center bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 border-l-4 border-red-500">
+          <div className="text-4xl font-bold text-red-600 dark:text-red-400 mb-3">
+            20%
+          </div>
+          <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+            违法占比
+          </div>
+          <div className="text-xs text-slate-500 dark:text-slate-400">
+            2024年预估违法占比
+          </div>
+        </div>
+      </div>
+
+      {/* 违法占比趋势图 */}
+      <div className="glass-card p-8 mb-8">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+            外卖快递骑手违法占比趋势（2021-2024）
+          </h3>
+          <div className="text-sm text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
+            违法占比(%)
+          </div>
+        </div>
+        <ReactECharts option={violationRatioChartOption} style={{ height: 400 }} />
+        <div className="text-sm text-slate-500 dark:text-slate-400 text-center mt-4">
+          数据来源：广州日报、广州人大、南方都市报
+        </div>
+      </div>
+
+      {/* 违法类型分析 */}
+      <div className="glass-card p-8 mb-8">
+        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
+          骑手违法类型分布（2021年基准）
+        </h3>
+        <ReactECharts option={violationTypeChartOption} style={{ height: 300 }} />
+        <div className="text-sm text-slate-500 dark:text-slate-400 text-center mt-4">
+          数据来源：广州日报
+        </div>
+      </div>
+
+      <div className="text-center mb-8">
+        <p className="text-lg text-slate-700 dark:text-slate-300">
+          这一现象背后，又隐藏着怎样的行业压力与生存困境？
+        </p>
+      </div>
       
       {/* 数据来源 - 图表部分 */}
       <div className="text-sm text-slate-500 dark:text-slate-400 text-center mb-8">
         数据来源：广州日报；羊城晚报
       </div>
 
-      <div className="grid gap-1 mt-16">
+      <div className="grid gap-1 mt-24">
         
         {/* ① 骑手规模与任务量 */}
         <div>

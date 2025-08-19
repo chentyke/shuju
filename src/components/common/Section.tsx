@@ -56,7 +56,7 @@ export function Section({
             )}
             {title && (
               <h2 className={clsx(
-                "font-bold mb-4 leading-tight",
+                "font-bold mb-12 leading-tight",
                 isMajorSection 
                   ? "text-4xl sm:text-5xl lg:text-6xl text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 dark:from-emerald-400 dark:via-teal-400 dark:to-cyan-400 drop-shadow-sm" 
                   : "text-3xl sm:text-4xl lg:text-5xl text-slate-900 dark:text-white"
@@ -65,9 +65,9 @@ export function Section({
               </h2>
             )}
             {description && (
-              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+              <div className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
                 {description}
-              </p>
+              </div>
             )}
           </header>
         )}

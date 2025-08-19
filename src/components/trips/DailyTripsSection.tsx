@@ -214,13 +214,27 @@ export function DailyTripsSection() {
   return (
     <Section 
       id="daily-trips"
-      title="疾驰之势"
-      className="bg-gradient-to-b from-white via-slate-50/50 to-emerald-50/30 dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900"
+      className="bg-gradient-to-b from-white via-slate-50/50 to-emerald-50/30 dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900 py-8 sm:py-12"
       fullScreen
       isMajorSection={true}
     >
+      {/* 图片标题 */}
+      <div className="max-w-2xl mx-auto text-center -mt-50 -mb-28">
+        <img 
+          src="/疾驰之势.png" 
+          alt="疾驰之势"
+          className="w-full max-w-lg mx-auto"
+          style={{ 
+            transform: 'scale(0.4)', 
+            transformOrigin: 'center center',
+            marginTop: '-20px',
+            marginBottom: '-20px'
+          }}
+        />
+      </div>
+
       {/* 保有量对比文本和图表 */}
-      <div className="max-w-7xl mx-auto mb-16">
+      <div className="max-w-7xl mx-auto mb-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* 左侧：文本说明 */}
           <div>
@@ -331,7 +345,7 @@ export function DailyTripsSection() {
         
         <p className="text-lg text-slate-700 dark:text-slate-300 leading-relaxed text-center">
           从比例来看，电动自行车在三大出行方式中的占比从 2021 年的 <span className="font-semibold text-emerald-600">15.8%</span> 提升至 2024 年的 <span className="font-semibold text-emerald-600">42.8%</span>，
-          市场份额几乎翻了三倍。这不仅意味着市民出行偏好的显著转变，也预示着广州在道路容量、交通管理和安全保障方面将面临全新的挑战。
+          市场份额翻了三倍。这不仅意味着市民出行偏好的显著转变，也预示着广州在道路容量、交通管理和安全保障方面将面临全新的挑战。
         </p>
       </div>
     </Section>

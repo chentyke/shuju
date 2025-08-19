@@ -24,7 +24,7 @@ export function CausalAnalysis() {
           </p>
 
           <p className="article-text">
-            根据建设部门的统计，广州现有的非机动车道中，仅有<span className="data-inline">16%</span>达到国家标准的2.5米宽度。这意味着<span className="article-emphasis">84%的非机动车道都存在"先天不足"</span>。当576万辆电动自行车涌入这些狭窄的车道时，拥堵和违法几乎成为必然。
+            根据建设部门的统计，广州现有的非机动车道中，仅有<span className="data-inline">16%</span>达到国家标准的2.5米宽度。这意味着<span className="article-emphasis">84%的非机动车道都存在"先天不足"</span>。当576万辆电动自行车涌入这些狭窄的车道时，拥堵和违法几乎成为常态。
           </p>
 
           <div className="insight-marker">
