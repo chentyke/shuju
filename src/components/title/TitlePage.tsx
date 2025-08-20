@@ -11,8 +11,7 @@ export function TitlePage() {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      {/* 背景遮罩层 */}
-      <div className="absolute inset-0 bg-black/40"></div>
+
 
       {/* 主要内容 */}
       <div className="relative z-10 text-left px-8 lg:px-16 max-w-4xl">
@@ -55,8 +54,7 @@ export function TitlePage() {
         </div>
       </div>
 
-      {/* 底部渐变遮罩 */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-900 to-transparent"></div>
+
     </section>
   );
 }
