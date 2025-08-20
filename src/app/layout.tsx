@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "疾驰的两轮——广州非机动车的崛起与治理挑战",
+  title: "疾驰广州 -电动自行车跃居出行'头牌'背后的困局",
   description:
     "以数据新闻的形式展现广州非机动车的发展、问题与治理路径，包含趋势、地图、违法事故、人群画像与治理经验等模块。",
 };
