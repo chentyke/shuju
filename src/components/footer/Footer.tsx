@@ -24,7 +24,7 @@ export function Footer() {
                 <h4 className="font-semibold text-gray-800 dark:text-gray-200 text-base">作者</h4>
                 <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-gray-700 dark:text-gray-300">
                   <div className="font-medium">陈正洋</div>
-                  <div className="font-medium">刘怡婷</div>
+                  <div className="font-medium">刘依婷</div>
                   <div className="font-medium">唐婧韬</div>
                   <div className="font-medium">陆静祎</div>
                 </div>
