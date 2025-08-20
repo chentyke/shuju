@@ -83,21 +83,84 @@ export function BestPractices() {
             那么，这些经验对广州有什么启示呢？根据我们的分析，广州可以考虑构建一套"全链条监管+分类治理"的综合体系。
           </p>
 
-          <p className="article-text">
-            首先是<span className="article-emphasis">推行分类登记</span>。借鉴深圳经验，将民生行业（外卖、快递）用车与个人用车区别对待。企业统一申领蓝牌并承担管理责任，实现真正的"人车关联"。
-          </p>
+          {/* 四宫格布局 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+            {/* 第一个启示：推行分类登记 */}
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 rounded-lg p-6 border border-blue-200 dark:border-blue-700">
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-lg mr-3">
+                  1
+                </div>
+                <h4 className="text-lg font-bold text-blue-800 dark:text-blue-200">
+                  推行分类登记
+                </h4>
+              </div>
+              <p className="text-sm text-blue-700 dark:text-blue-300 leading-relaxed">
+                借鉴深圳经验，将民生行业（外卖、快递）用车与个人用车区别对待。企业统一申领蓝牌并承担管理责任，实现真正的"人车关联"。
+              </p>
+              <div className="mt-3 flex items-center text-xs text-blue-600 dark:text-blue-400">
+                <span className="bg-blue-200 dark:bg-blue-800 px-2 py-1 rounded">深圳模式</span>
+                <span className="ml-2">违法率降低40%</span>
+              </div>
+            </div>
 
-          <p className="article-text">
-            其次是<span className="article-emphasis">建立数字化平台</span>。学习浙江做法，引入"广品码"机制，为每辆车及电池赋予唯一身份码，覆盖生产、销售、维修、回收全环节，杜绝非法改装与二手电池流通。
-          </p>
+            {/* 第二个启示：建立数字化平台 */}
+            <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-lg p-6 border border-green-200 dark:border-green-700">
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-lg mr-3">
+                  2
+                </div>
+                <h4 className="text-lg font-bold text-green-800 dark:text-green-200">
+                  建立数字化平台
+                </h4>
+              </div>
+              <p className="text-sm text-green-700 dark:text-green-300 leading-relaxed">
+                学习浙江做法，引入"广品码"机制，为每辆车及电池赋予唯一身份码，覆盖生产、销售、维修、回收全环节，杜绝非法改装与二手电池流通。
+              </p>
+              <div className="mt-3 flex items-center text-xs text-green-600 dark:text-green-400">
+                <span className="bg-green-200 dark:bg-green-800 px-2 py-1 rounded">浙江经验</span>
+                <span className="ml-2">一码知全貌</span>
+              </div>
+            </div>
 
-          <p className="article-text">
-            第三是<span className="article-emphasis">强化科技执法</span>。扩展现有的抓拍试点，结合RFID芯片与AI识别技术，实现违法行为的精准识别和非现场执法。
-          </p>
+            {/* 第三个启示：强化科技执法 */}
+            <div className="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 rounded-lg p-6 border border-purple-200 dark:border-purple-700">
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-lg mr-3">
+                  3
+                </div>
+                <h4 className="text-lg font-bold text-purple-800 dark:text-purple-200">
+                  强化科技执法
+                </h4>
+              </div>
+              <p className="text-sm text-purple-700 dark:text-purple-300 leading-relaxed">
+                扩展现有的抓拍试点，结合RFID芯片与AI识别技术，实现违法行为的精准识别和非现场执法。
+              </p>
+              <div className="mt-3 flex items-center text-xs text-purple-600 dark:text-purple-400">
+                <span className="bg-purple-200 dark:bg-purple-800 px-2 py-1 rounded">AI技术</span>
+                <span className="ml-2">精准执法</span>
+              </div>
+            </div>
 
-          <p className="article-text">
-            最后是<span className="article-emphasis">压实主体责任</span>。要求外卖平台等企业落实"五个一律"管理制度，建立联合惩戒机制，对违规企业进行严厉处罚。
-          </p>
+            {/* 第四个启示：压实主体责任 */}
+            <div className="bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 rounded-lg p-6 border border-orange-200 dark:border-orange-700">
+              <div className="flex items-center mb-4">
+                <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg mr-3">
+                  4
+                </div>
+                <h4 className="text-lg font-bold text-orange-800 dark:text-orange-200">
+                  压实主体责任
+                </h4>
+              </div>
+              <p className="text-sm text-orange-700 dark:text-orange-300 leading-relaxed">
+                要求外卖平台等企业落实"五个一律"管理制度，建立联合惩戒机制，对违规企业进行严厉处罚。
+              </p>
+              <div className="mt-3 flex items-center text-xs text-orange-600 dark:text-orange-400">
+                <span className="bg-orange-200 dark:bg-orange-800 px-2 py-1 rounded">五个一律</span>
+                <span className="ml-2">联合惩戒</span>
+              </div>
+            </div>
+          </div>
 
           <div className="insight-marker">
             <p className="article-text">

@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { Section } from "@/components/common/Section";
+import { Speedometer } from "@/components/charts/Speedometer";
 import type { EChartsOption } from "echarts";
 
 const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false }) as unknown as (props: { option: EChartsOption; style?: React.CSSProperties }) => import("react").ReactElement | null;
@@ -61,8 +62,15 @@ export function CausalAnalysis() {
             如果说道路是症状，那么车辆本身就是病根。调研发现，市面上<span className="data-inline">65%</span>的电动自行车实际行驶速度超过国标规定的25公里/小时，部分车型甚至能达到50公里/小时以上。
           </p>
 
-          <p className="article-text">
-            这种"超标车"的泛滥并非偶然。在电商平台上，<span className="article-emphasis">"可解锁限速"、"一键提速"</span>成为热销卖点。2023年，关于电动自行车的投诉量比上年增长了<span className="data-inline">120%</span>，其中<span className="data-inline">58%</span>涉及虚假宣传。
+          {/* 速度表可视化 */}
+          <div className="my-4">
+            <div className="max-w-2xl mx-auto">
+              <Speedometer />
+            </div>
+          </div>
+
+          <p className="article-text -mt-12">
+            这种"超标车"的泛滥并非偶然。在电商平台上，<span className="article-emphasis">"可解锁限速"、"一键提速"</span>成为热销卖点。2023年，关于电动自行车的投诉量比上年增长了<span className="data-inline">120%</span>，<span className="text-red-600 font-semibold">其中<span className="text-red-600 font-bold">58%</span>涉及虚假宣传</span>。
           </p>
 
           <div className="insight-marker">
@@ -100,14 +108,12 @@ export function CausalAnalysis() {
           </p>
 
           <p className="article-text">
-            以号牌管理为例，<span className="article-emphasis">共享电单车、外卖专用车长期缺乏登记渠道</span>，处于法律灰色地带。直到《广州市电动自行车管理规定》2024年底才正式实施，but这已经是"亡羊补牢"了。
+            以号牌管理为例，<span className="article-emphasis">共享电单车、外卖专用车长期缺乏登记渠道</span>，处于法律灰色地带。直到《广州市电动自行车管理规定》2024年底才正式实施，但是这已经是"亡羊补牢"了。
           </p>
 
-          <div className="insight-marker">
-            <p className="article-text">
-              更严重的是执法标准不统一。在天河、越秀等中心城区严查无牌车辆，但在黄埔、番禺等外围区域，共享电单车无牌运营却相对普遍。这种"一区一策"的执法方式，不仅影响公平性，也降低了整体治理效果。
-            </p>
-          </div>
+          <p className="article-text">
+            更严重的是执法标准不统一。在天河、越秀等中心城区严查无牌车辆，但在黄埔、番禺等外围区域，共享电单车无牌运营却相对普遍。这种"一区一策"的执法方式，不仅影响公平性，也降低了整体治理效果。
+          </p>
 
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">
             系统性困境需要系统性解决

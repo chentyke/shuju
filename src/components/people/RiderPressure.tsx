@@ -99,11 +99,6 @@ export function RiderPressure() {
           这一现象背后，又隐藏着怎样的行业压力与生存困境？
         </p>
       </div>
-      
-      {/* 数据来源 - 图表部分 */}
-      <div className="text-sm text-slate-500 dark:text-slate-400 text-center mb-8">
-        数据来源：广州日报；羊城晚报
-      </div>
 
       <div className="grid gap-1 mt-24">
         
