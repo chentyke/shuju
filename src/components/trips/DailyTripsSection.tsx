@@ -219,7 +219,7 @@ export function DailyTripsSection() {
       isMajorSection={true}
     >
       {/* 图片标题 */}
-      <div className="max-w-2xl mx-auto text-center -mt-50 -mb-28">
+      <div className="max-w-2xl mx-auto text-center -mt-20 -mb-16">
         <img 
           src="/疾驰之势.png" 
           alt="疾驰之势"
@@ -227,8 +227,8 @@ export function DailyTripsSection() {
           style={{ 
             transform: 'scale(0.4)', 
             transformOrigin: 'center center',
-            marginTop: '-20px',
-            marginBottom: '-20px'
+            marginTop: '-220px',
+            marginBottom: '-100px'
           }}
         />
       </div>
