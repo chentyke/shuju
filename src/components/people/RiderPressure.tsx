@@ -43,9 +43,9 @@ export function RiderPressure() {
       </div>
 
       {/* 核心统计数据 */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
-        <div className="glass-card p-6 text-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border-l-4 border-blue-500">
-          <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8">
+        <div className="glass-card p-4 sm:p-6 text-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border-l-4 border-blue-500">
+          <div className="text-3xl sm:text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2 sm:mb-3">
             {riderBasicData.totalActiveRiders}万
           </div>
           <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
@@ -56,8 +56,8 @@ export function RiderPressure() {
           </div>
         </div>
         
-        <div className="glass-card p-6 text-center bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 border-l-4 border-amber-500">
-          <div className="text-4xl font-bold text-amber-600 dark:text-amber-400 mb-3">
+        <div className="glass-card p-4 sm:p-6 text-center bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 border-l-4 border-amber-500">
+          <div className="text-3xl sm:text-4xl font-bold text-amber-600 dark:text-amber-400 mb-2 sm:mb-3">
             {riderBasicData.riderPercentage}%
           </div>
           <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
@@ -68,8 +68,8 @@ export function RiderPressure() {
           </div>
         </div>
         
-        <div className="glass-card p-6 text-center bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 border-l-4 border-red-500">
-          <div className="text-4xl font-bold text-red-600 dark:text-red-400 mb-3">
+        <div className="glass-card p-4 sm:p-6 text-center bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/30 dark:to-red-800/30 border-l-4 border-red-500">
+          <div className="text-3xl sm:text-4xl font-bold text-red-600 dark:text-red-400 mb-2 sm:mb-3">
             20%
           </div>
           <div className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
@@ -82,12 +82,12 @@ export function RiderPressure() {
       </div>
 
       {/* 违法占比趋势图 */}
-      <div className="glass-card p-8 mb-8">
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+      <div className="glass-card p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 sm:mb-6 gap-3 sm:gap-0">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
             外卖快递骑手违法占比趋势（2021-2024）
           </h3>
-          <div className="text-sm text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full">
+          <div className="text-sm text-slate-500 bg-slate-100 dark:bg-slate-800 px-3 py-1 rounded-full self-start sm:self-auto">
             违法占比(%)
           </div>
         </div>
@@ -98,8 +98,8 @@ export function RiderPressure() {
       </div>
 
       {/* 违法类型分析 */}
-      <div className="glass-card p-8 mb-8">
-        <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
+      <div className="glass-card p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+        <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6">
           骑手违法类型分布（2021年基准）
         </h3>
         <ReactECharts option={violationTypeChartOption} style={{ height: 300 }} />
@@ -114,29 +114,32 @@ export function RiderPressure() {
         </p>
       </div>
 
-      <div className="grid gap-1 mt-24">
+      <div className="space-y-6 sm:space-y-8 mt-16 sm:mt-20 lg:mt-24">
         
         {/* ① 骑手规模与任务量 */}
         <div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
             ① 骑手规模与任务量
           </h3>
+          <div className="text-sm sm:text-base text-slate-600 dark:text-slate-300 mb-4">
+            广州有 <span className="font-semibold text-blue-600">12万</span> 活跃骑手，平均每天完成 <span className="font-semibold text-green-600">35单</span>，高峰时段可达 <span className="font-semibold text-orange-600">50单</span>。
+          </div>
           <RiderScale />
         </div>
 
         {/* ② 平台要求 vs 限速现实 */}
         <div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
             ② 平台要求 vs 限速现实
           </h3>
-          <div className="mb-4 p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg">
-            <p className="text-slate-700 dark:text-slate-300">
+          <div className="mb-4 p-4 sm:p-5 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-lg">
+            <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
               平台要求 3公里内订单<span className="font-semibold text-blue-600">{deliveryTimeData.platformRequirement}分钟</span>送达，
               但在 <span className="font-semibold text-red-600">{deliveryTimeData.speedLimit}公里/小时</span>限速下，
               实际配送（含等餐、等红灯）往往需要 
               <span className="font-semibold text-orange-600"> {deliveryTimeData.realityTime.min}–{deliveryTimeData.realityTime.max}分钟</span>。
             </p>
-            <p className="mt-2 text-red-600 font-semibold">
+            <p className="mt-3 text-red-600 font-semibold text-sm sm:text-base">
               👉 几乎没有容错空间，超时风险大增。
             </p>
           </div>
@@ -144,15 +147,15 @@ export function RiderPressure() {
 
         {/* ③ 收入与罚款 */}
         <div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
             ③ 收入与罚款
           </h3>
-          <div className="mb-6 p-6 bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-lg">
-            <p className="text-slate-700 dark:text-slate-300 mb-4">
+          <div className="mb-4 sm:mb-6 p-4 sm:p-5 lg:p-6 bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-lg">
+            <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 mb-4">
               骑手不仅要"拼时间"，还要承受高额罚款：
             </p>
             
-            <div className="grid md:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
               <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-lg">
                 <div className="text-lg font-bold text-orange-600 dark:text-orange-400">
                   超时罚款
@@ -187,11 +190,11 @@ export function RiderPressure() {
               </div>
             </div>
             
-            <div className="p-4 bg-gradient-to-r from-red-100 to-red-200 dark:from-red-900/40 dark:to-red-800/40 rounded-lg">
-              <div className="font-bold text-red-700 dark:text-red-300 mb-2">
+            <div className="p-4 sm:p-5 bg-gradient-to-r from-red-100 to-red-200 dark:from-red-900/40 dark:to-red-800/40 rounded-lg">
+              <div className="font-bold text-red-700 dark:text-red-300 mb-3">
                 收入受到重创：
               </div>
-              <div className="grid md:grid-cols-2 gap-4 text-sm">
+              <div className="space-y-3 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-4 text-sm">
                 <div>
                   <span className="font-semibold">限速前：</span>
                   <span className="text-green-600 font-bold">
@@ -212,15 +215,15 @@ export function RiderPressure() {
 
         {/* ④ 违规与无奈 */}
         <div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
             ④ 违规与无奈
           </h3>
-          <div className="mb-6 p-6 bg-gradient-to-r from-amber-50 to-red-50 dark:from-amber-900/20 dark:to-red-900/20 rounded-lg">            
-            <p className="text-slate-700 dark:text-slate-300 mb-4">
+          <div className="mb-4 sm:mb-6 p-4 sm:p-5 lg:p-6 bg-gradient-to-r from-amber-50 to-red-50 dark:from-amber-900/20 dark:to-red-900/20 rounded-lg">            
+            <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 mb-4">
               <span className="font-semibold text-slate-900 dark:text-white">压力之下的违法行为：</span>在收入下降和罚款压力下，违规几乎成了"生存手段"。
             </p>
             
-            <div className="grid md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-lg">
                 <div className="flex items-center space-x-3 mb-2">
                   <span className="text-3xl">🚦</span>
@@ -254,17 +257,17 @@ export function RiderPressure() {
 
         {/* ⑤ 衍生现象 */}
         <div>
-          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
             ⑤ 衍生现象
           </h3>
-          <div className="p-6 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-800/50 dark:to-gray-800/50 rounded-lg border-l-4 border-amber-500">
-            <div className="flex items-start space-x-4">
-              <span className="text-4xl">⚡</span>
-              <div>
-                <h4 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+          <div className="p-4 sm:p-5 lg:p-6 bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-800/50 dark:to-gray-800/50 rounded-lg border-l-4 border-amber-500">
+            <div className="flex items-start space-x-3 sm:space-x-4">
+              <span className="text-3xl sm:text-4xl flex-shrink-0">⚡</span>
+              <div className="min-w-0">
+                <h4 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mb-2">
                   电动车解码器市场兴起
                 </h4>
-                <p className="text-slate-700 dark:text-slate-300">
+                <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed">
                   这股压力催生了一个灰色市场：<span className="font-semibold text-amber-600">电动车解码器销量激增</span>。
                   许多骑手选择解除限速，以恢复原有效率。这一现象反映了政策执行与现实需求之间的巨大落差，
                   也揭示了在生存压力面前，规则与安全往往让位于经济需要的残酷现实。
