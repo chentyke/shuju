@@ -17,11 +17,25 @@ export function DeliverySpeedPressure() {
   return (
     <Section 
       id="delivery-speed-pressure" 
-      title="逐单争速部分"
       description="广州有12万活跃骑手，在平台算法和时间压力的双重驱动下，他们每天都在与时间赛跑。然而，限速政策的实施让这场竞速变得更加激烈和危险。"
-      className="bg-gradient-to-b from-blue-50/50 to-amber-50/50 dark:from-blue-900/20 dark:to-amber-900/20"
+      className="bg-gradient-to-b from-blue-50/50 to-amber-50/50 dark:from-blue-900/20 dark:to-amber-900/20 py-8 sm:py-12"
       isMajorSection={true}
     >
+      {/* 图片标题 */}
+      <div className="max-w-2xl mx-auto text-center -mt-8 -mb-16">
+        <img 
+          src="/逐单竞速.png" 
+          alt="逐单竞速"
+          className="w-full max-w-lg mx-auto"
+          style={{ 
+            transform: 'scale(0.4)', 
+            transformOrigin: 'center center',
+            marginTop: '-200px',
+            marginBottom: '-150px'
+          }}
+        />
+      </div>
+
       <div className="space-y-8">
         {/* ① 骑手规模与任务量 */}
         <div>

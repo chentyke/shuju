@@ -9,7 +9,27 @@ const ReactECharts = dynamic(() => import("echarts-for-react"), { ssr: false }) 
 
 export function CausalAnalysis() {
   return (
-    <Section id="causal-analysis" title="探因溯源" subtitle="当繁荣遇见瓶颈" isMajorSection={true}>
+    <Section 
+      id="causal-analysis" 
+      subtitle="当繁荣遇见瓶颈" 
+      className="py-8 sm:py-12"
+      isMajorSection={true}
+    >
+      {/* 图片标题 */}
+      <div className="max-w-2xl mx-auto text-center -mt-8 -mb-16">
+        <img 
+          src="/探因溯源.png" 
+          alt="探因溯源"
+          className="w-full max-w-lg mx-auto"
+          style={{ 
+            transform: 'scale(0.4)', 
+            transformOrigin: 'center center',
+            marginTop: '-200px',
+            marginBottom: '-150px'
+          }}
+        />
+      </div>
+
       <div className="max-w-4xl mx-auto">
         <div className="prose prose-lg">
           <p className="article-lead">
@@ -50,8 +70,24 @@ export function CausalAnalysis() {
             问题不只是人手不够。现有的执法手段也相对落后：智能信号灯覆盖率仅为<span className="data-inline">45%</span>，专用的电动自行车抓拍摄像头覆盖率更是只有<span className="data-inline">30%</span>。这种"看得见管不着"的状况，让违法行为屡禁不止。
           </p>
 
-          <div className="quote-block">
-            "有时候一个路口就有几十辆电动车闯红灯，我们根本拦不过来。罚了这个，那个已经跑远了。"一位基层交警这样描述执法中的无奈。
+          {/* 交警对话框图片与文字叠加 */}
+          <div className="my-8">
+            <div className="relative inline-block">
+              <img 
+                src="/police.png" 
+                alt="交警执法现场" 
+                className="w-200 h-auto"
+              />
+              
+              {/* 叠加的文字内容 - 图片内右上角 */}
+              <div className="absolute top-20 right-40 max-w-xs">
+                <blockquote className="text-gray-800 dark:text-gray-200 text-lg leading-relaxed font-medium">
+                  <span className="text-xl text-blue-500 font-serif">"</span>
+                  有时候一个路口就有几十辆电动车闯红灯，我们根本拦不过来。罚了这个，那个已经跑远了。
+                  <span className="text-xl text-blue-500 font-serif">"</span>
+                </blockquote>
+              </div>
+            </div>
           </div>
 
           <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-4">

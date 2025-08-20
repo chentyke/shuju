@@ -11,10 +11,24 @@ export function ViolationTrends() {
   return (
     <Section 
       id="violation-trends" 
-      title="隐患在途" 
-      className="bg-gradient-to-b from-red-50/50 to-orange-50/50 dark:from-red-900/20 dark:to-orange-900/20"
+      className="bg-gradient-to-b from-red-50/50 to-orange-50/50 dark:from-red-900/20 dark:to-orange-900/20 py-8 sm:py-12"
       isMajorSection={true}
     >
+      {/* 图片标题 */}
+      <div className="max-w-2xl mx-auto text-center -mt-8 -mb-16">
+        <img 
+          src="/隐患在途.png" 
+          alt="隐患在途"
+          className="w-full max-w-lg mx-auto"
+          style={{ 
+            transform: 'scale(0.4)', 
+            transformOrigin: 'center center',
+            marginTop: '-200px',
+            marginBottom: '-150px'
+          }}
+        />
+      </div>
+
       {/* 标签和描述 */}
       <div className="max-w-4xl mx-auto mb-12 text-center">
         <div className="inline-flex items-center px-6 py-3 rounded-full text-base font-semibold bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300 border border-red-200 dark:border-red-800 mb-6">

@@ -23,11 +23,25 @@ export function RiderPressure() {
   return (
     <Section 
       id="rider-pressure" 
-      title="逐单争速"
       description="在这些违法与事故数据背后，有一个群体的身影格外突出——外卖与快递骑手。他们虽然只占电动自行车总量的一小部分，却在交通违法和事故统计中长期高居前列。"
-      className="bg-gradient-to-b from-amber-50/50 to-red-50/50 dark:from-amber-900/20 dark:to-red-900/20"
+      className="bg-gradient-to-b from-amber-50/50 to-red-50/50 dark:from-amber-900/20 dark:to-red-900/20 py-8 sm:py-12"
       isMajorSection={true}
     >
+      {/* 图片标题 */}
+      <div className="max-w-2xl mx-auto text-center -mt-8 -mb-16">
+        <img 
+          src="/逐单竞速.png" 
+          alt="逐单竞速"
+          className="w-full max-w-lg mx-auto"
+          style={{ 
+            transform: 'scale(0.4)', 
+            transformOrigin: 'center center',
+            marginTop: '-200px',
+            marginBottom: '-150px'
+          }}
+        />
+      </div>
+
       {/* 核心统计数据 */}
       <div className="grid grid-cols-3 gap-6 mb-8">
         <div className="glass-card p-6 text-center bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 border-l-4 border-blue-500">
