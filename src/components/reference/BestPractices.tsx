@@ -10,7 +10,6 @@ export function BestPractices() {
   return (
     <Section 
       id="best-practices" 
-      subtitle="当其他城市找到了答案" 
       className="py-8 sm:py-12"
       isMajorSection={true}
     >

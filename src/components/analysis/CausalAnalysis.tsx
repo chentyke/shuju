@@ -11,7 +11,6 @@ export function CausalAnalysis() {
   return (
     <Section 
       id="causal-analysis" 
-      subtitle="当繁荣遇见瓶颈" 
       className="py-8 sm:py-12"
       isMajorSection={true}
     >
